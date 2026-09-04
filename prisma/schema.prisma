@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  BAR_OPERATOR
+  GATE_STAFF
+}
+
+enum TrackingType {
+  LIQUOR
+  BEER
+}
+
+enum OrderStatus {
+  COMPLETED
+  VOID
+}
+
+enum AdjustmentType {
+  ADD
+  REMOVE
+}
+
+enum GateAuditAction {
+  CHECK_IN
+  UNDO_CHECK_IN
+  ADD_PASS
+  REMOVE_PASS
+  PERMISSION_CHANGE
+  CREATE_STAFF
+  DISABLE_STAFF
+  ENABLE_STAFF
+}
+
+model User {
+  id                   String   @id @default(cuid())
+  username             String   @unique
+  name                 String
+  passwordHash         String
+  role                 UserRole @default(BAR_OPERATOR)
+  active               Boolean  @default(true)
+  canAddGateEntries    Boolean  @default(false)
+  canRemoveGateEntries Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  ordersCreated          Order[]                 @relation("OrderCreatedBy")
+  ordersVoided           Order[]                 @relation("OrderVoidedBy")
+  stockAdjustments       StockAdjustment[]
+  pricesCreated          Price[]
+  closingReports         ClosingReport[]
+  productUpdates         Product[]
+  passesCreated          OfflinePass[]           @relation("PassCreatedBy")
+  passesCheckedIn        OfflinePass[]           @relation("PassCheckedInBy")
+  gateAudits             GateAuditLog[]
+}
+
+model Product {
+  id               String       @id @default(cuid())
+  name             String
+  fullName         String?
+  slug             String       @unique
+  category         String
+  trackingType     TrackingType
+  bottleSizeMl     Int?
+  pegSizeMl        Int?
+  sizeMl           Int?
+  sortOrder        Int          @default(0)
+  active           Boolean      @default(true)
+  initialBottles   Float?
+  initialUnits     Float?
+  initialVolumeMl  Float?
+  lowThreshold     Float
+  veryLowThreshold Float
+  updatedById      String?
+  updatedBy        User?        @relation(fields: [updatedById], references: [id])
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  prices          Price[]
+  stock           Stock?
+  adjustments     StockAdjustment[]
+  orderItems      OrderItem[]
+  closingLines    ClosingLine[]
+}
+
+model Price {
+  id            String   @id @default(cuid())
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id])
+  price         Int
+  effectiveFrom DateTime @default(now())
+  active        Boolean  @default(true)
+  createdById   String?
+  createdBy     User?    @relation(fields: [createdById], references: [id])
+  createdAt     DateTime @default(now())
+
+  @@index([productId, active])
+}
+
+model Stock {
+  id                String   @id @default(cuid())
+  productId         String   @unique
+  product           Product  @relation(fields: [productId], references: [id])
+  estimatedVolumeMl Float?
+  estimatedUnits    Float?
+  updatedAt         DateTime @updatedAt
+}
+
+model StockAdjustment {
+  id             String         @id @default(cuid())
+  productId      String
+  product        Product        @relation(fields: [productId], references: [id])
+  adjustmentType AdjustmentType
+  quantity       Float
+  unit           String
+  volumeMl       Float?
+  reason         String
+  note           String?
+  createdById    String?
+  createdBy      User?          @relation(fields: [createdById], references: [id])
+  createdAt      DateTime       @default(now())
+
+  @@index([productId, createdAt])
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  orderNumber    Int         @unique
+  total          Int
+  status         OrderStatus @default(COMPLETED)
+  voidReason     String?
+  voidedAt       DateTime?
+  idempotencyKey String?     @unique
+  createdById    String?
+  createdBy      User?       @relation("OrderCreatedBy", fields: [createdById], references: [id])
+  voidedById     String?
+  voidedBy       User?       @relation("OrderVoidedBy", fields: [voidedById], references: [id])
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  items          OrderItem[]
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model OrderItem {
+  id                  String  @id @default(cuid())
+  orderId             String
+  order               Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId           String
+  product             Product @relation(fields: [productId], references: [id])
+  productNameSnapshot String
+  quantity            Int
+  unit                String
+  unitPrice           Int
+  lineTotal           Int
+  volumeConsumedMl    Float?
+
+  @@index([productId])
+}
+
+model ClosingReport {
+  id          String        @id @default(cuid())
+  notes       String?
+  createdById String?
+  createdBy   User?         @relation(fields: [createdById], references: [id])
+  createdAt   DateTime      @default(now())
+  lines       ClosingLine[]
+}
+
+model ClosingLine {
+  id              String        @id @default(cuid())
+  reportId        String
+  report          ClosingReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product       @relation(fields: [productId], references: [id])
+  estimatedStock  Float
+  physicalStock   Float
+  variance        Float
+  unit            String
+}
+
+model OfflinePass {
+  id            String    @id @default(cuid())
+  passId        String    @unique
+  name          String
+  phone         String
+  note          String?
+  checkedInAt   DateTime?
+  checkedInById String?
+  checkedInBy   User?     @relation("PassCheckedInBy", fields: [checkedInById], references: [id])
+  createdById   String?
+  createdBy     User?     @relation("PassCreatedBy", fields: [createdById], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([name])
+  @@index([phone])
+  @@index([checkedInAt])
+}
+
+model GateAuditLog {
+  id         String          @id @default(cuid())
+  action     GateAuditAction
+  actorId    String?
+  actor      User?           @relation(fields: [actorId], references: [id])
+  passId     String?
+  targetUser String?
+  detail     String?
+  createdAt  DateTime        @default(now())
+
+  @@index([createdAt])
+  @@index([action])
+}

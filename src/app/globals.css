@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-sans: "Segoe UI", system-ui, sans-serif;
+  --color-ink: #070709;
+  --color-panel: #101014;
+  --color-panel-2: #17171c;
+  --color-line: rgba(224, 184, 74, 0.18);
+  --color-gold: #e0b84a;
+  --color-gold-2: #f3d27a;
+  --color-cream: #f4efe4;
+  --color-mute: #8d8778;
+  --color-ok: #3dd68c;
+  --color-warn: #e7c04a;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #070709;
+  color: #f4efe4;
+  min-height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans), sans-serif;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(224, 184, 74, 0.12), transparent 50%),
+    radial-gradient(900px 400px at 110% 0%, rgba(190, 40, 70, 0.16), transparent 45%),
+    #070709;
+  width: 100%;
+  position: relative;
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.gold-line {
+  background: linear-gradient(90deg, transparent, rgba(224, 184, 74, 0.55), transparent);
+  height: 1px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(224, 184, 74, 0.14);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.pressable {
+  transition: transform 60ms ease;
+}
+
+.pressable:active {
+  transform: scale(0.97);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 640px) {
+  .panel {
+    box-shadow: none;
+  }
+}
