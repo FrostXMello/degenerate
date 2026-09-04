@@ -43,6 +43,7 @@ export function AppNav({ user }: { user: SessionUser }) {
                 <li key={link.href} className="shrink-0">
                   <Link
                     href={link.href}
+                    prefetch
                     className={cn(
                       "block rounded-full px-3 py-1.5 text-sm whitespace-nowrap",
                       active ? "bg-gold text-ink font-semibold" : "text-mute hover:text-cream",
