@@ -35,7 +35,8 @@ Open [http://localhost:3000](http://localhost:3000).
 1. Import the GitHub repo
 2. Build command: `npm run vercel-build`
 3. Env vars:
-   - `DATABASE_URL` — Supabase **Session pooler** connection string (`…pooler.supabase.com:5432/…`)
+   - `DATABASE_URL` — Supabase **Transaction** pooler (`…pooler.supabase.com:6543/…?pgbouncer=true&connection_limit=1`)
+   - `DIRECT_URL` — Supabase **Session** pooler (`…pooler.supabase.com:5432/…`) for `db push`
    - `AUTH_SECRET` — long random string
 
-Use the Session pooler URL (port **5432**), not the direct `db.*.supabase.co` host — that host is IPv6-only and fails on many networks / Vercel setups.
+Do not use Session mode (5432) as `DATABASE_URL` on Vercel — it exhausts Supabase’s session pool.
