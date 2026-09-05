@@ -124,7 +124,7 @@ export async function clearSessionCookie() {
 }
 
 export function homeForRole(role: UserRole) {
-  return role === "GATE_STAFF" ? "/gate" : "/order";
+  return role === "GATE_STAFF" ? "/guests" : "/order";
 }
 
 export const SESSION_COOKIE = COOKIE;

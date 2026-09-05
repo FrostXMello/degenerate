@@ -1,5 +1,7 @@
-import { PrismaClient, TrackingType, UserRole } from "@prisma/client";
+import { PrismaClient, TrackingType, UserRole, GuestType } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const prisma = new PrismaClient();
 
@@ -22,6 +24,15 @@ type BeerSeed = {
   sizeMl: number | null;
 };
 
+type GuestSeed = {
+  name: string;
+  phone: string | null;
+  email: string | null;
+  reg_no: string | null;
+  guest_type: string;
+  cover_charge: number;
+};
+
 const liquor: LiquorSeed[] = [
   { name: "Jameson", fullName: "Jameson Irish Whiskey", slug: "jameson", bottles: 17 },
   { name: "Red Label", fullName: "Johnnie Walker Red Label", slug: "red-label", bottles: 10 },
@@ -35,6 +46,23 @@ const beer: BeerSeed[] = [
   { name: "Heineken", fullName: "Heineken", slug: "heineken", units: 96, sizeMl: 500 },
   { name: "Kingfisher", fullName: "Kingfisher", slug: "kingfisher", units: 120, sizeMl: null },
 ];
+
+function normalizePhone(phone: string | null | undefined) {
+  if (!phone) return null;
+  const digits = phone.replace(/[^\d]/g, "");
+  return digits || null;
+}
+
+function mapGuestType(raw: string): GuestType {
+  if (raw === "paid") return GuestType.PAID;
+  if (raw === "backstage_special" || raw === "backstage") return GuestType.BACKSTAGE;
+  return GuestType.REGULAR;
+}
+
+function defaultCover(type: GuestType, cover: number | null | undefined) {
+  if (typeof cover === "number") return cover;
+  return type === GuestType.REGULAR ? 1000 : 0;
+}
 
 async function main() {
   const adminHash = await bcrypt.hash("admin6969", 10);
@@ -190,6 +218,54 @@ async function main() {
       },
     });
   }
+
+  // Guest list seed (idempotent by phone / regNo / name)
+  const guestPath = join(__dirname, "guest-list.json");
+  const guests = JSON.parse(readFileSync(guestPath, "utf8")) as GuestSeed[];
+  for (const g of guests) {
+    const phone = normalizePhone(g.phone);
+    const email = g.email?.trim() || null;
+    const regNo = g.reg_no?.trim() || null;
+    const guestType = mapGuestType(g.guest_type);
+    const coverCharge = defaultCover(guestType, g.cover_charge);
+
+    const existing =
+      (phone
+        ? await prisma.guestListEntry.findFirst({ where: { phone } })
+        : null) ||
+      (regNo
+        ? await prisma.guestListEntry.findFirst({ where: { regNo } })
+        : null) ||
+      (await prisma.guestListEntry.findFirst({
+        where: { name: g.name, phone: phone, regNo: regNo },
+      }));
+
+    if (existing) {
+      await prisma.guestListEntry.update({
+        where: { id: existing.id },
+        data: {
+          name: g.name,
+          phone,
+          email,
+          regNo,
+          guestType,
+          coverCharge,
+        },
+      });
+    } else {
+      await prisma.guestListEntry.create({
+        data: {
+          name: g.name,
+          phone,
+          email,
+          regNo,
+          guestType,
+          coverCharge,
+        },
+      });
+    }
+  }
+  console.log(`Guest list seeded: ${guests.length} entries`);
 }
 
 main()

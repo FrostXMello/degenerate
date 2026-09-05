@@ -38,6 +38,16 @@ enum GateAuditAction {
   CREATE_STAFF
   DISABLE_STAFF
   ENABLE_STAFF
+  ADD_GUEST
+  REMOVE_GUEST
+  GUEST_CHECK_IN
+  GUEST_UNDO_CHECK_IN
+}
+
+enum GuestType {
+  REGULAR
+  PAID
+  BACKSTAGE
 }
 
 model User {
@@ -60,6 +70,8 @@ model User {
   productUpdates         Product[]
   passesCreated          OfflinePass[]           @relation("PassCreatedBy")
   passesCheckedIn        OfflinePass[]           @relation("PassCheckedInBy")
+  guestsCreated          GuestListEntry[]        @relation("GuestCreatedBy")
+  guestsCheckedIn        GuestListEntry[]        @relation("GuestCheckedInBy")
   gateAudits             GateAuditLog[]
 }
 
@@ -205,6 +217,32 @@ model OfflinePass {
 
   @@index([name])
   @@index([phone])
+  @@index([checkedInAt])
+}
+
+model GuestListEntry {
+  id             String    @id @default(cuid())
+  name           String
+  phone          String?
+  email          String?
+  regNo          String?
+  guestType      GuestType @default(REGULAR)
+  coverCharge    Int       @default(1000)
+  coverCollected Boolean   @default(false)
+  note           String?
+  checkedInAt    DateTime?
+  checkedInById  String?
+  checkedInBy    User?     @relation("GuestCheckedInBy", fields: [checkedInById], references: [id])
+  createdById    String?
+  createdBy      User?     @relation("GuestCreatedBy", fields: [createdById], references: [id])
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([name])
+  @@index([phone])
+  @@index([email])
+  @@index([regNo])
+  @@index([guestType])
   @@index([checkedInAt])
 }
 

@@ -13,6 +13,7 @@ const barLinks = [
   { href: "/stock", label: "Stock" },
   { href: "/products", label: "Products" },
   { href: "/closing", label: "Closing" },
+  { href: "/guests", label: "Guests", admin: true },
   { href: "/gate", label: "Gate", admin: true },
 ];
 
@@ -20,7 +21,10 @@ export function AppNav({ user }: { user: SessionUser }) {
   const pathname = usePathname();
   const isGate = user.role === "GATE_STAFF";
   const links = isGate
-    ? [{ href: "/gate", label: "Gate Entry" }]
+    ? [
+        { href: "/guests", label: "Guest List" },
+        { href: "/gate", label: "Offline Passes" },
+      ]
     : barLinks.filter((l) => !("admin" in l && l.admin) || user.role === "ADMIN");
 
   const roleLabel =

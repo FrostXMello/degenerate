@@ -154,6 +154,9 @@ export function GateDesk({
             Manage gate staff
           </Link>
         )}
+        <Link href="/guests" className="rounded-full border border-white/15 text-mute px-3 py-1.5 text-xs">
+          Guest list
+        </Link>
       </div>
 
       <div className="grid grid-cols-3 gap-2">

@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
 
   if (PUBLIC.includes(pathname)) {
     if (role) {
-      const dest = role === "GATE_STAFF" ? "/gate" : "/order";
+      const dest = role === "GATE_STAFF" ? "/guests" : "/order";
       return NextResponse.redirect(new URL(dest, request.url));
     }
     return NextResponse.next();
@@ -46,13 +46,17 @@ export async function middleware(request: NextRequest) {
   }
 
   if (role === "GATE_STAFF") {
-    if (pathname === "/gate" || (pathname.startsWith("/gate/") && !pathname.startsWith("/gate/staff"))) {
+    if (
+      pathname === "/gate" ||
+      pathname === "/guests" ||
+      (pathname.startsWith("/gate/") && !pathname.startsWith("/gate/staff"))
+    ) {
       return NextResponse.next();
     }
     if (pathname.startsWith("/gate/staff")) {
       return NextResponse.redirect(new URL("/gate", request.url));
     }
-    return NextResponse.redirect(new URL("/gate", request.url));
+    return NextResponse.redirect(new URL("/guests", request.url));
   }
 
   if (pathname === "/" || pathname === "") {
@@ -62,7 +66,11 @@ export async function middleware(request: NextRequest) {
   // Bar operators stay on bar routes; /gate is admin (+ gate staff) only for simplicity
   // Admin can access everything including gate.
   if (role === "BAR_OPERATOR") {
-    const isGate = GATE_ONLY_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+    const isGate =
+      pathname === "/gate" ||
+      pathname.startsWith("/gate/") ||
+      pathname === "/guests" ||
+      pathname.startsWith("/guests/");
     if (isGate) {
       return NextResponse.redirect(new URL("/order", request.url));
     }

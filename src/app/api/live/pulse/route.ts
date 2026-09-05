@@ -8,9 +8,10 @@ export const runtime = "nodejs";
 export async function GET() {
   try {
     // Soft auth: middleware already requires a session cookie for /api/*
-    const [orders, passes, stock, products, prices, closing] = await Promise.all([
+    const [orders, passes, guests, stock, products, prices, closing] = await Promise.all([
       prisma.order.aggregate({ _count: true, _max: { updatedAt: true } }),
       prisma.offlinePass.aggregate({ _count: true, _max: { updatedAt: true } }),
+      prisma.guestListEntry.aggregate({ _count: true, _max: { updatedAt: true } }),
       prisma.stock.aggregate({ _count: true, _max: { updatedAt: true } }),
       prisma.product.aggregate({ _count: true, _max: { updatedAt: true } }),
       prisma.price.aggregate({ _count: true, _max: { createdAt: true } }),
@@ -22,6 +23,8 @@ export async function GET() {
       orders._max.updatedAt?.toISOString() ?? "",
       passes._count,
       passes._max.updatedAt?.toISOString() ?? "",
+      guests._count,
+      guests._max.updatedAt?.toISOString() ?? "",
       stock._count,
       stock._max.updatedAt?.toISOString() ?? "",
       products._count,

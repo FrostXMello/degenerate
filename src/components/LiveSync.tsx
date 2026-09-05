@@ -12,6 +12,7 @@ const LIVE_TABLES = [
   "Product",
   "Price",
   "OfflinePass",
+  "GuestListEntry",
   "ClosingReport",
   "GateAuditLog",
 ] as const;
