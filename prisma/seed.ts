@@ -119,7 +119,7 @@ async function main() {
       passwordHash: gateHash,
       role: UserRole.GATE_STAFF,
       active: true,
-      canAddGateEntries: false,
+      canAddGateEntries: true,
       canRemoveGateEntries: false,
     },
     create: {
@@ -128,7 +128,7 @@ async function main() {
       passwordHash: gateHash,
       role: UserRole.GATE_STAFF,
       active: true,
-      canAddGateEntries: false,
+      canAddGateEntries: true,
       canRemoveGateEntries: false,
     },
   });
