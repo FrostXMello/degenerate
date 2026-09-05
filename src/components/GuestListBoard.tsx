@@ -106,11 +106,12 @@ export function GuestListBoard({
     setMessageKind(kind);
   }
 
-  function checkIn(guest: GuestRow) {
+  function checkIn(guest: GuestRow, collectCover: boolean) {
     startTransition(async () => {
-      const result = await checkInGuestAction(guest.id, true);
+      const result = await checkInGuestAction(guest.id, collectCover);
       if (result.ok) {
         const at = result.checkedInAt!;
+        const nowCovered = collectCover || guest.coverCollected || guest.guestType !== "REGULAR";
         setGuests((prev) =>
           prev.map((g) =>
             g.id === guest.id
@@ -118,7 +119,7 @@ export function GuestListBoard({
                   ...g,
                   checkedInAt: at,
                   checkedInByName: user.name,
-                  coverCollected: guest.guestType === "REGULAR" ? true : g.coverCollected,
+                  coverCollected: nowCovered ? true : g.coverCollected,
                 }
               : g,
           ),
@@ -128,11 +129,16 @@ export function GuestListBoard({
           checkedIn: s.checkedIn + 1,
           notCheckedIn: Math.max(0, s.notCheckedIn - 1),
           coverDue:
-            guest.guestType === "REGULAR" && !guest.coverCollected
+            guest.guestType === "REGULAR" && collectCover && !guest.coverCollected
               ? Math.max(0, s.coverDue - guest.coverCharge)
               : s.coverDue,
         }));
-        flash(`✓ CHECKED IN · ${guest.name}`, "ok");
+        flash(
+          collectCover
+            ? `✓ COVER + CHECKED IN · ${guest.name}`
+            : `✓ CHECKED IN · ${guest.name}`,
+          "ok",
+        );
         return;
       }
       if ("already" in result && result.already) {
@@ -145,6 +151,28 @@ export function GuestListBoard({
         return;
       }
       flash(result.error, "err");
+    });
+  }
+
+  function markCoverPaid(guest: GuestRow) {
+    if (guest.coverCollected) {
+      flash(`Cover already marked paid for ${guest.name}`, "warn");
+      return;
+    }
+    startTransition(async () => {
+      const result = await setGuestCoverCollectedAction(guest.id, true);
+      if (!result.ok) {
+        flash(result.error, "err");
+        return;
+      }
+      setGuests((prev) =>
+        prev.map((g) => (g.id === guest.id ? { ...g, coverCollected: true } : g)),
+      );
+      setStats((s) => ({
+        ...s,
+        coverDue: Math.max(0, s.coverDue - guest.coverCharge),
+      }));
+      flash(`Cover paid · ${guest.name}`, "ok");
     });
   }
 
@@ -211,6 +239,7 @@ export function GuestListBoard({
           ? Math.max(0, s.coverDue - guest.coverCharge)
           : s.coverDue + guest.coverCharge,
       }));
+      flash(next ? `Cover paid · ${guest.name}` : `Cover marked due · ${guest.name}`, "ok");
     });
   }
 
@@ -385,36 +414,68 @@ export function GuestListBoard({
                     </p>
                   )}
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {!guest.checkedInAt ? (
-                    <button
-                      type="button"
-                      disabled={pending}
-                      onClick={() => checkIn(guest)}
-                      className="pressable rounded-xl bg-gold text-ink font-semibold px-4 py-2 text-sm"
-                    >
-                      {guest.guestType === "REGULAR" ? "Cover + check in" : "Check in"}
-                    </button>
-                  ) : (
-                    isAdmin && (
+                <div className="flex flex-wrap gap-2 justify-end">
+                  {!guest.checkedInAt && guest.guestType === "REGULAR" && (
+                    <>
+                      <button
+                        type="button"
+                        disabled={pending || guest.coverCollected}
+                        onClick={() => markCoverPaid(guest)}
+                        className={cn(
+                          "rounded-xl border px-3 py-2 text-xs font-medium",
+                          guest.coverCollected
+                            ? "border-emerald-400/30 text-emerald-300"
+                            : "border-gold/40 text-gold",
+                        )}
+                      >
+                        {guest.coverCollected ? "Cover paid ✓" : "Cover paid"}
+                      </button>
                       <button
                         type="button"
                         disabled={pending}
-                        onClick={() => undo(guest)}
-                        className="rounded-xl border border-white/15 text-mute px-3 py-2 text-xs"
+                        onClick={() => checkIn(guest, false)}
+                        className="pressable rounded-xl border border-white/20 text-cream px-3 py-2 text-xs font-medium"
                       >
-                        Undo
+                        Check in
                       </button>
-                    )
+                      <button
+                        type="button"
+                        disabled={pending}
+                        onClick={() => checkIn(guest, true)}
+                        className="pressable rounded-xl bg-gold text-ink font-semibold px-3 py-2 text-xs"
+                      >
+                        Both
+                      </button>
+                    </>
                   )}
-                  {guest.guestType === "REGULAR" && !guest.checkedInAt && (
+                  {!guest.checkedInAt && guest.guestType !== "REGULAR" && (
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => checkIn(guest, false)}
+                      className="pressable rounded-xl bg-gold text-ink font-semibold px-4 py-2 text-sm"
+                    >
+                      Check in
+                    </button>
+                  )}
+                  {guest.checkedInAt && isAdmin && (
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => undo(guest)}
+                      className="rounded-xl border border-white/15 text-mute px-3 py-2 text-xs"
+                    >
+                      Undo check-in
+                    </button>
+                  )}
+                  {guest.guestType === "REGULAR" && guest.coverCollected && (
                     <button
                       type="button"
                       disabled={pending}
                       onClick={() => toggleCover(guest)}
-                      className="rounded-xl border border-gold/30 text-gold px-3 py-2 text-xs"
+                      className="rounded-xl border border-white/10 text-mute px-3 py-2 text-xs"
                     >
-                      {guest.coverCollected ? "Mark cover due" : "Mark cover paid"}
+                      Undo cover
                     </button>
                   )}
                   {canRemove && (
@@ -499,14 +560,15 @@ function AddGuestForm({
 
   return (
     <form onSubmit={submit} className="panel rounded-2xl p-4 space-y-3">
-      <p className="text-xs uppercase tracking-[0.2em] text-gold">Add entry</p>
+      <p className="text-xs uppercase tracking-[0.2em] text-gold">Add guest</p>
+      <p className="text-xs text-mute">All fields optional — add whatever you have (name, phone, email, or reg no).</p>
       <div className="grid sm:grid-cols-2 gap-3">
         <label className="block sm:col-span-2">
-          <span className="text-xs text-mute">Name *</span>
+          <span className="text-xs text-mute">Name</span>
           <input
-            required
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="Optional"
             className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2 outline-none focus:border-gold"
           />
         </label>
@@ -515,6 +577,7 @@ function AddGuestForm({
           <input
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            placeholder="Optional"
             className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2 outline-none focus:border-gold"
           />
         </label>
@@ -523,6 +586,7 @@ function AddGuestForm({
           <input
             value={regNo}
             onChange={(e) => setRegNo(e.target.value)}
+            placeholder="Optional"
             className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2 outline-none focus:border-gold"
           />
         </label>
@@ -531,6 +595,7 @@ function AddGuestForm({
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Optional"
             className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2 outline-none focus:border-gold"
           />
         </label>

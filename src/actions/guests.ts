@@ -107,20 +107,28 @@ export async function getGuestSnapshot() {
 }
 
 export async function addGuestAction(input: {
-  name: string;
+  name?: string;
   phone?: string;
   email?: string;
   regNo?: string;
-  guestType: string;
+  guestType?: string;
   coverCharge?: number;
   note?: string;
 }) {
   try {
     const session = await requireGatePermission("add");
-    const name = input.name.trim();
-    if (!name) return { ok: false as const, error: "Name is required." };
+    const nameRaw = input.name?.trim() || "";
+    const phone = normalizePhone(input.phone);
+    const email = input.email?.trim() || null;
+    const regNo = input.regNo?.trim() || null;
 
-    const guestType = mapType(input.guestType);
+    if (!nameRaw && !phone && !email && !regNo) {
+      return { ok: false as const, error: "Add at least a name, phone, email, or reg no." };
+    }
+
+    const name = nameRaw || phone || email || regNo || "Guest";
+
+    const guestType = mapType(input.guestType || "REGULAR");
     const coverCharge =
       typeof input.coverCharge === "number" && !Number.isNaN(input.coverCharge)
         ? Math.max(0, Math.round(input.coverCharge))
@@ -129,11 +137,12 @@ export async function addGuestAction(input: {
     const guest = await prisma.guestListEntry.create({
       data: {
         name,
-        phone: normalizePhone(input.phone),
-        email: input.email?.trim() || null,
-        regNo: input.regNo?.trim() || null,
+        phone,
+        email,
+        regNo,
         guestType,
         coverCharge,
+        coverCollected: guestType !== GuestType.REGULAR,
         note: input.note?.trim() || null,
         createdById: session.id,
       },
