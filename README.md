@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | Admin | `admin` | `admin6969` |
 | Bar | `bar1`–`bar4` | `bar456` |
 | Gate | `gate1` / `gate2` | `gate456` |
-| Food | `food1` / `food2` / `food3` | `food456` |
+| Food | `food1` / `food2` / `food3` | `goodfoods` |
 
 ## Deploy (Vercel)
 

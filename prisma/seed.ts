@@ -165,7 +165,7 @@ async function main() {
     },
   });
 
-  const foodHash = await bcrypt.hash("food456", 10);
+  const foodHash = await bcrypt.hash("goodfoods", 10);
   const foodStaff = [
     { username: "food1", name: "Food 1" },
     { username: "food2", name: "Food 2" },
