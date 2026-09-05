@@ -181,20 +181,34 @@ export function GateStaffAdmin({
 
       <section className="space-y-2">
         <h2 className="font-display text-2xl text-gold">Audit log</h2>
+        <p className="text-xs text-mute">
+          Unchecks (mistaken check-ins) are logged as GUEST_UNDO_CHECK_IN with who fixed it.
+        </p>
         <ul className="space-y-1.5 text-sm">
-          {initialAudit.map((row) => (
-            <li key={row.id} className="panel rounded-xl px-3 py-2 flex flex-wrap justify-between gap-2">
-              <span>
-                <span className="text-gold">{row.action}</span>
-                {row.passId ? ` · ${row.passId}` : ""}
-                {row.targetUser ? ` · ${row.targetUser}` : ""}
-                {row.detail ? ` · ${row.detail}` : ""}
-              </span>
-              <span className="text-mute text-xs">
-                {row.actorName} · {formatDateTime(row.createdAt)}
-              </span>
-            </li>
-          ))}
+          {initialAudit.map((row) => {
+            const isUndo = row.action === "GUEST_UNDO_CHECK_IN";
+            return (
+              <li
+                key={row.id}
+                className={cn(
+                  "panel rounded-xl px-3 py-2 flex flex-wrap justify-between gap-2",
+                  isUndo && "border border-amber-400/25",
+                )}
+              >
+                <span>
+                  <span className={isUndo ? "text-amber-200" : "text-gold"}>
+                    {isUndo ? "UNCHECK (mistake)" : row.action}
+                  </span>
+                  {row.passId ? ` · ${row.passId}` : ""}
+                  {row.targetUser ? ` · ${row.targetUser}` : ""}
+                  {row.detail ? ` · ${row.detail}` : ""}
+                </span>
+                <span className="text-mute text-xs">
+                  {row.actorName} · {formatDateTime(row.createdAt)}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </div>

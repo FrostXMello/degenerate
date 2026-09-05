@@ -239,17 +239,30 @@ export async function checkInGuestAction(id: string, collectCover = true) {
 export async function undoGuestCheckInAction(id: string) {
   try {
     const session = await requireSession();
-    if (session.role !== "ADMIN") {
-      return { ok: false as const, error: "Only admin can undo guest check-in." };
+    if (session.role !== "ADMIN" && session.role !== "GATE_STAFF") {
+      return { ok: false as const, error: "Forbidden" };
     }
+
+    const existing = await prisma.guestListEntry.findUnique({
+      where: { id },
+      include: { checkedInBy: { select: { name: true, username: true } } },
+    });
+    if (!existing) return { ok: false as const, error: "Guest not found." };
+    if (!existing.checkedInAt) {
+      return { ok: false as const, error: "Guest is not checked in." };
+    }
+
     await prisma.guestListEntry.update({
       where: { id },
       data: { checkedInAt: null, checkedInById: null },
     });
+
+    const originalBy =
+      existing.checkedInBy?.name || existing.checkedInBy?.username || "unknown";
     await audit({
       action: "GUEST_UNDO_CHECK_IN",
       actorId: session.id,
-      detail: id,
+      detail: `${existing.name} · was in at ${existing.checkedInAt.toISOString()} by ${originalBy} · unchecked by ${session.name}`,
     });
     revalidateGuests();
     return { ok: true as const };

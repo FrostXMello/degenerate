@@ -85,6 +85,7 @@ export function GuestListBoard({
   const canAdd = user.role === "ADMIN" || user.canAddGateEntries;
   const canRemove = user.role === "ADMIN" || user.canRemoveGateEntries;
   const isAdmin = user.role === "ADMIN";
+  const canUncheck = user.role === "ADMIN" || user.role === "GATE_STAFF";
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -458,7 +459,7 @@ export function GuestListBoard({
                       Check in
                     </button>
                   )}
-                  {guest.checkedInAt && isAdmin && (
+                  {guest.checkedInAt && canUncheck && (
                     <button
                       type="button"
                       disabled={pending}
