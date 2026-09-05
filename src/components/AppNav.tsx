@@ -13,14 +13,14 @@ const barLinks = [
   { href: "/stock", label: "Stock" },
   { href: "/products", label: "Products" },
   { href: "/closing", label: "Closing" },
-  { href: "/guests", label: "Door", admin: true },
+  { href: "/guests", label: "Guests", admin: true },
 ];
 
 export function AppNav({ user }: { user: SessionUser }) {
   const pathname = usePathname();
   const isGate = user.role === "GATE_STAFF";
   const links = isGate
-    ? [{ href: "/guests", label: "Door List" }]
+    ? [{ href: "/guests", label: "Guests" }]
     : barLinks.filter((l) => !("admin" in l && l.admin) || user.role === "ADMIN");
 
   const roleLabel =
@@ -32,7 +32,7 @@ export function AppNav({ user }: { user: SessionUser }) {
         <Link href={isGate ? "/guests" : "/order"} className="shrink-0">
           <p className="font-display text-xl leading-none text-gold">DEGENERATE</p>
           <p className="text-[9px] tracking-[0.35em] text-mute uppercase">
-            {isGate ? "Door" : "Bar ledger"}
+            {isGate ? "Guests" : "Bar ledger"}
           </p>
         </Link>
         <nav className="flex-1 min-w-0 overflow-x-auto overscroll-x-contain scrollbar-none">

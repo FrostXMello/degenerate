@@ -12,8 +12,8 @@ import {
 import type { GateAuditAction } from "@prisma/client";
 
 function revalidateGate() {
-  revalidatePath("/gate");
-  revalidatePath("/gate/staff");
+  revalidatePath("/guests");
+  revalidatePath("/guests/staff");
 }
 
 async function audit(input: {

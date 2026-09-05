@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-/** Offline passes now live in the unified Door List. */
+/** Old offline-pass gate UI removed — everything is on Guests. */
 export default function GatePage() {
   redirect("/guests");
 }

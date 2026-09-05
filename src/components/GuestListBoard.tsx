@@ -218,14 +218,14 @@ export function GuestListBoard({
     <div className="space-y-3 pb-24 sm:pb-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-gold">All entries</p>
-          <h1 className="font-display text-4xl sm:text-5xl leading-none">Door List</h1>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-gold">Guest list</p>
+          <h1 className="font-display text-4xl sm:text-5xl leading-none">Guests</h1>
           <p className="text-sm text-mute mt-1">Guest list · Offline passes · Backstage — one search</p>
         </div>
         <div className="flex flex-wrap gap-2">
           {isAdmin && (
-            <Link href="/gate/staff" className="rounded-full border border-gold/40 text-gold px-3 py-1.5 text-xs">
-              Gate staff
+            <Link href="/guests/staff" className="rounded-full border border-gold/40 text-gold px-3 py-1.5 text-xs">
+              Door staff
             </Link>
           )}
           {canAdd && (

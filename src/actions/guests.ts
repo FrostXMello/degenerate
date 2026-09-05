@@ -8,7 +8,6 @@ import type { GateAuditAction } from "@prisma/client";
 
 function revalidateGuests() {
   revalidatePath("/guests");
-  revalidatePath("/gate");
 }
 
 async function audit(input: {

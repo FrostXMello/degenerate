@@ -96,8 +96,8 @@ export function GateStaffAdmin({
           <p className="text-[10px] tracking-[0.3em] uppercase text-gold">Admin</p>
           <h1 className="font-display text-4xl sm:text-5xl leading-none">Gate Staff</h1>
         </div>
-        <Link href="/gate" className="text-sm text-mute hover:text-cream">
-          ← Back to gate
+        <Link href="/guests" className="text-sm text-mute hover:text-cream">
+          ← Back to guests
         </Link>
       </div>
 

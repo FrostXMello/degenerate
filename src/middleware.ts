@@ -3,8 +3,6 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 const PUBLIC = ["/login"];
-const GATE_ONLY_PATHS = ["/gate"];
-const BAR_PATHS = ["/order", "/orders", "/stock", "/products", "/dashboard", "/closing"];
 
 function secret() {
   return new TextEncoder().encode(process.env.AUTH_SECRET || "degenerate-party-bar-change-me-before-the-event");
@@ -45,38 +43,35 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(login);
   }
 
-  if (role === "GATE_STAFF") {
-    if (
-      pathname === "/gate" ||
-      pathname === "/guests" ||
-      (pathname.startsWith("/gate/") && !pathname.startsWith("/gate/staff"))
-    ) {
-      return NextResponse.next();
-    }
+  // Legacy gate URLs → guests
+  if (pathname === "/gate" || pathname.startsWith("/gate/")) {
     if (pathname.startsWith("/gate/staff")) {
-      return NextResponse.redirect(new URL("/gate", request.url));
+      return NextResponse.redirect(new URL("/guests/staff", request.url));
+    }
+    return NextResponse.redirect(new URL("/guests", request.url));
+  }
+
+  if (role === "GATE_STAFF") {
+    if (pathname === "/guests" || pathname.startsWith("/guests/")) {
+      // Staff admin is admin-only
+      if (pathname.startsWith("/guests/staff")) {
+        return NextResponse.redirect(new URL("/guests", request.url));
+      }
+      return NextResponse.next();
     }
     return NextResponse.redirect(new URL("/guests", request.url));
   }
 
   if (pathname === "/" || pathname === "") {
-    return NextResponse.redirect(new URL(role === "ADMIN" ? "/order" : "/order", request.url));
+    return NextResponse.redirect(new URL("/order", request.url));
   }
 
-  // Bar operators stay on bar routes; /gate is admin (+ gate staff) only for simplicity
-  // Admin can access everything including gate.
   if (role === "BAR_OPERATOR") {
-    const isGate =
-      pathname === "/gate" ||
-      pathname.startsWith("/gate/") ||
-      pathname === "/guests" ||
-      pathname.startsWith("/guests/");
-    if (isGate) {
+    if (pathname === "/guests" || pathname.startsWith("/guests/")) {
       return NextResponse.redirect(new URL("/order", request.url));
     }
   }
 
-  void BAR_PATHS;
   return NextResponse.next();
 }
 
