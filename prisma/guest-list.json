@@ -1,297 +1,17 @@
 [
   {
-    "name": "Pavani",
-    "phone": "7696619558",
-    "email": "pavanii0407@gmail.com",
-    "reg_no": "2506030017",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Yadvi",
-    "phone": "8427043757",
-    "email": "arorayadvi2007@gmail.com",
-    "reg_no": "2505060002",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Viru Chaudhary",
-    "phone": "9887537482",
+    "name": "Aaditya",
+    "phone": "916387552513",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Yash Malik",
-    "phone": "7983429233",
+    "name": "Aanya Sajwan",
+    "phone": "9664130945",
     "email": null,
     "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Aryan",
-    "phone": "9931105500",
-    "email": "aryanraj4704@gmail.com",
-    "reg_no": "2421030129",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Jaskirat Singh",
-    "phone": "8269976418",
-    "email": "sainijaskirat1512@gmail.com",
-    "reg_no": "2425020046",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Kanishka Goswami",
-    "phone": "9711225509",
-    "email": "kanishka.2428020030@muj.manipal.edu",
-    "reg_no": "2428020030",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Ananya Gupta",
-    "phone": "9545450130",
-    "email": "ananya.2427030166@muj.manipal.edu",
-    "reg_no": "2427030166",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Ayush Kumar",
-    "phone": "8707307584",
-    "email": "ayush.2430040024@muj.manipal.edu",
-    "reg_no": "2430040024",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Vedanshi Rajput",
-    "phone": "8178016577",
-    "email": "rajputvedanshi508@gmail.com",
-    "reg_no": "23FE10CAI00218",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Sanvi",
-    "phone": "8168591062",
-    "email": "Sanvigarhwal@1987@gmail.com",
-    "reg_no": "2608040096",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Tijil Goel",
-    "phone": "9354080409",
-    "email": "Goyaltijil2@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Garima Sharma",
-    "phone": "7015313510",
-    "email": "gsgarima1306@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Aditya Shukla",
-    "phone": "7903911716",
-    "email": "Aditya.shukla0430@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Uday",
-    "phone": "8318619069",
-    "email": "Us328155@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Bohra",
-    "phone": "8290052783",
-    "email": "Hardikbohra6902@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Rohit",
-    "phone": "9971227509",
-    "email": "rohitpang3@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Lalit",
-    "phone": "9462515446",
-    "email": "lalitsuthar7902@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Gaurav",
-    "phone": "7407062004",
-    "email": "Gauravxgangwal@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Sankalp",
-    "phone": "9266113796",
-    "email": "Sankalpm212@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Hridiyansh Shukla",
-    "phone": "7355765356",
-    "email": "pandithridiyansh@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Swastik Singh Chauhan",
-    "phone": "7992136922",
-    "email": "swastiksinghchauhan22@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Shaiv Sah",
-    "phone": "6290815532",
-    "email": "shaivsah5@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Vishal Singh",
-    "phone": "7033767753",
-    "email": "vis2000hal@gmail.com",
-    "reg_no": "2421030065",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Saket Singh",
-    "phone": "9555568413",
-    "email": "Saketsingh5550@gmail.com",
-    "reg_no": "2606010184",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Sumit Kumar",
-    "phone": "9508265561",
-    "email": "Sumitbvm23@gmail.com",
-    "reg_no": "2420020099",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Parth",
-    "phone": "9587585888",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Mahi",
-    "phone": "9001215414",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Aman Tiwari",
-    "phone": null,
-    "email": null,
-    "reg_no": "2421030281",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Nikhil Danodia",
-    "phone": null,
-    "email": null,
-    "reg_no": "2421030195",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Pritam Rout",
-    "phone": null,
-    "email": null,
-    "reg_no": "2421030074",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Arjun Singh Nathawat",
-    "phone": null,
-    "email": null,
-    "reg_no": "2606110027",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Sanchit Juneja",
-    "phone": "9811512032",
-    "email": "sanchitjuneja05@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Parshv Singh",
-    "phone": "9251010802",
-    "email": "parshv247@gmail.com",
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Yukthi Jain",
-    "phone": "9390377079",
-    "email": "yukthi.2608030064@muj.manipal.edu",
-    "reg_no": "2608030064",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Kinjal Jain",
-    "phone": "7093358070",
-    "email": "kinjal.2608030065@muj.manipal.edu",
-    "reg_no": "2608030065",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Abhay Singh",
-    "phone": "9783854181",
-    "email": "Abhay.2424130068@muj.manipal.edu",
-    "reg_no": "2424130068",
     "guest_type": "regular",
     "cover_charge": 1000
   },
@@ -304,10 +24,26 @@
     "cover_charge": 1000
   },
   {
-    "name": "Ansh Rai",
-    "phone": "7297807678",
-    "email": "Anshroy070@gmail.com",
-    "reg_no": "2421040034",
+    "name": "Abhay Singh",
+    "phone": "9783854181",
+    "email": "Abhay.2424130068@muj.manipal.edu",
+    "reg_no": "2424130068",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Aditya Shukla",
+    "phone": "7903911716",
+    "email": "Aditya.shukla0430@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Agrim Badhatya",
+    "phone": null,
+    "email": null,
+    "reg_no": "2606010134",
     "guest_type": "regular",
     "cover_charge": 1000
   },
@@ -315,118 +51,6 @@
     "name": "Akash Pachera",
     "phone": "9760127075",
     "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Digvijay Khatkar",
-    "phone": "7973661388",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Vishwajeet Nandal",
-    "phone": "9466755707",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Viraj Tyagi",
-    "phone": "6397796318",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Pratham Bhatt",
-    "phone": "8439507053",
-    "email": null,
-    "reg_no": "2505060058",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Ridhi Kaura",
-    "phone": "8368447658",
-    "email": null,
-    "reg_no": "2505060008",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Mansi Gaur",
-    "phone": "7727046698",
-    "email": null,
-    "reg_no": "2421030144",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Vandit",
-    "phone": "9625479457",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Anurag",
-    "phone": "8889522475",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Arjun Khanna",
-    "phone": "9873504904",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Janvi Singh",
-    "phone": "9818475225",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Trupti Rothe",
-    "phone": "918793061588",
-    "email": null,
-    "reg_no": "2425060093",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Neha Rajpurohit",
-    "phone": "918003600468",
-    "email": null,
-    "reg_no": "24170100022",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Hiyanshi Baser",
-    "phone": "919826044811",
-    "email": null,
-    "reg_no": "2421030305",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Anisha Lamba",
-    "phone": "9310039926",
-    "email": "Anisha.lamba576@gmail.com",
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
@@ -440,48 +64,40 @@
     "cover_charge": 1000
   },
   {
-    "name": "Estartha Aich",
-    "phone": "918822328738",
+    "name": "Aman Tiwari",
+    "phone": null,
     "email": null,
-    "reg_no": null,
-    "guest_type": "backstage_special",
-    "cover_charge": 0
+    "reg_no": "2421030281",
+    "guest_type": "regular",
+    "cover_charge": 1000
   },
   {
-    "name": "Anmol Samant",
-    "phone": "7668063718",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "backstage_special",
-    "cover_charge": 0
+    "name": "Ananya Gupta",
+    "phone": "9545450130",
+    "email": "ananya.2427030166@muj.manipal.edu",
+    "reg_no": "2427030166",
+    "guest_type": "regular",
+    "cover_charge": 1000
   },
   {
-    "name": "Akktri Pokhariya",
-    "phone": "8791500215",
+    "name": "Anhad Bhatti",
+    "phone": "919871152701",
     "email": null,
-    "reg_no": null,
-    "guest_type": "backstage_special",
-    "cover_charge": 0
+    "reg_no": "2503110088",
+    "guest_type": "regular",
+    "cover_charge": 1000
   },
   {
-    "name": "Vihan Choudhary",
-    "phone": "7023372334",
-    "email": null,
+    "name": "Anisha Lamba",
+    "phone": "9310039926",
+    "email": "Anisha.lamba576@gmail.com",
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Rahul Sharma",
-    "phone": "8109103004",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Sajal Gupta",
-    "phone": "9560822880",
+    "name": "Ankit Raj",
+    "phone": "7870032894",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
@@ -496,26 +112,42 @@
     "cover_charge": 1000
   },
   {
-    "name": "Azhaan Khan",
-    "phone": "919871052702",
+    "name": "Ansh Rai",
+    "phone": "7297807678",
+    "email": "Anshroy070@gmail.com",
+    "reg_no": "2421040034",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Anurag",
+    "phone": "8889522475",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Kushaagra Prashar",
-    "phone": "919305561976",
+    "name": "Arham Faisal",
+    "phone": "9650697171",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Aaditya",
-    "phone": "916387552513",
+    "name": "Arjun Khanna",
+    "phone": "9873504904",
     "email": null,
     "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Arjun Singh Nathawat",
+    "phone": null,
+    "email": null,
+    "reg_no": "2606110027",
     "guest_type": "regular",
     "cover_charge": 1000
   },
@@ -528,8 +160,232 @@
     "cover_charge": 1000
   },
   {
-    "name": "Rishab",
-    "phone": "9006115310",
+    "name": "Aryan",
+    "phone": "9931105500",
+    "email": "aryanraj4704@gmail.com",
+    "reg_no": "2421030129",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Atin Pandey",
+    "phone": "919431906534",
+    "email": null,
+    "reg_no": "2502051173",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Ayush Kumar",
+    "phone": "8707307584",
+    "email": "ayush.2430040024@muj.manipal.edu",
+    "reg_no": "2430040024",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Azhaan Khan",
+    "phone": "919871052702",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Bohra",
+    "phone": "8290052783",
+    "email": "Hardikbohra6902@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Chammi Farhan",
+    "phone": "8472009042",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Deepanshu Singh",
+    "phone": null,
+    "email": null,
+    "reg_no": "23FE10ITE00148",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Digvijay Khatkar",
+    "phone": "7973661388",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Garima Sharma",
+    "phone": "7015313510",
+    "email": "gsgarima1306@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Gaurav",
+    "phone": "7407062004",
+    "email": "Gauravxgangwal@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Hargun Kaur",
+    "phone": "9217003326",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Harsimratt Kaur",
+    "phone": "9541217737",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Hiyanshi Baser",
+    "phone": "919826044811",
+    "email": null,
+    "reg_no": "2421030305",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Hridiyansh Shukla",
+    "phone": "7355765356",
+    "email": "pandithridiyansh@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Ishaan Arora",
+    "phone": "9310765620",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Janvi Singh",
+    "phone": "9818475225",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Jaskirat Singh",
+    "phone": "8269976418",
+    "email": "sainijaskirat1512@gmail.com",
+    "reg_no": "2425020046",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Jiya Arora",
+    "phone": "9720231820",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Jotsaroop",
+    "phone": "9198454272846",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Kanishk Daria",
+    "phone": "6378335363",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Kanishka Goswami",
+    "phone": "9711225509",
+    "email": "kanishka.2428020030@muj.manipal.edu",
+    "reg_no": "2428020030",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Kashvi",
+    "phone": "9195450224319",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Kinjal Jain",
+    "phone": "7093358070",
+    "email": "kinjal.2608030065@muj.manipal.edu",
+    "reg_no": "2608030065",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Kushaagra Prashar",
+    "phone": "919305561976",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Lalit",
+    "phone": "9462515446",
+    "email": "lalitsuthar7902@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Lohima Saini",
+    "phone": "9521760569",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Mahi",
+    "phone": "9001215414",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Mansi Gaur",
+    "phone": "7727046698",
+    "email": null,
+    "reg_no": "2421030144",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Mehak Sharma",
+    "phone": "7807866869",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
@@ -544,33 +400,145 @@
     "cover_charge": 1000
   },
   {
-    "name": "Anhad Bhatti",
-    "phone": "919871152701",
+    "name": "Mugdha Behl",
+    "phone": "6377735947",
     "email": null,
-    "reg_no": "2503110088",
+    "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Atin Pandey",
-    "phone": "919431906534",
+    "name": "Navneet Chhabra",
+    "phone": "8955314898",
     "email": null,
-    "reg_no": "2502051173",
+    "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Agrim Badhatya",
+    "name": "Neha Rajpurohit",
+    "phone": "918003600468",
+    "email": null,
+    "reg_no": "24170100022",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Nikhil Danodia",
     "phone": null,
     "email": null,
-    "reg_no": "2606010134",
+    "reg_no": "2421030195",
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Kanishk Daria",
-    "phone": "6378335363",
+    "name": "Nysa",
+    "phone": "919711190050",
     "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Parikshit Singh Rathore",
+    "phone": "7728855932",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Parshv Singh",
+    "phone": "9251010802",
+    "email": "parshv247@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Parth",
+    "phone": "9587585888",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Parth Rathore",
+    "phone": "8178150289",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Pavani",
+    "phone": "7696619558",
+    "email": "pavanii0407@gmail.com",
+    "reg_no": "2506030017",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Pratham Bhatt",
+    "phone": "8439507053",
+    "email": null,
+    "reg_no": "2505060058",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Prisha Dawar",
+    "phone": "9953944255",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Pritam Rout",
+    "phone": null,
+    "email": null,
+    "reg_no": "2421030074",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Rahul Sharma",
+    "phone": "8109103004",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Ridhi Kaura",
+    "phone": "8368447658",
+    "email": null,
+    "reg_no": "2505060008",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Rishab",
+    "phone": "9006115310",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Ritik Jain",
+    "phone": "7014240764",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Rohit",
+    "phone": "9971227509",
+    "email": "rohitpang3@gmail.com",
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
@@ -592,57 +560,57 @@
     "cover_charge": 1000
   },
   {
-    "name": "Shubhangi Shankar",
-    "phone": "8799001147",
+    "name": "Sajal Gupta",
+    "phone": "9560822880",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Tanmay Singh",
-    "phone": "7879196720",
-    "email": null,
+    "name": "Saket Singh",
+    "phone": "9555568413",
+    "email": "Saketsingh5550@gmail.com",
+    "reg_no": "2606010184",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Sanchit Juneja",
+    "phone": "9811512032",
+    "email": "sanchitjuneja05@gmail.com",
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Ankit Raj",
-    "phone": "7870032894",
-    "email": null,
+    "name": "Sankalp",
+    "phone": "9266113796",
+    "email": "Sankalpm212@gmail.com",
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Shubham",
-    "phone": "9660738440",
-    "email": null,
-    "reg_no": null,
+    "name": "Sanvi",
+    "phone": "8168591062",
+    "email": "Sanvigarhwal@1987@gmail.com",
+    "reg_no": "2608040096",
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Mehak Sharma",
-    "phone": "7807866869",
+    "name": "Satvik Yadav",
+    "phone": null,
     "email": null,
-    "reg_no": null,
+    "reg_no": "23FE10ITE00169",
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Parth Rathore",
-    "phone": "8178150289",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Ritik Jain",
-    "phone": "7014240764",
-    "email": null,
+    "name": "Shaiv Sah",
+    "phone": "6290815532",
+    "email": "shaivsah5@gmail.com",
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
@@ -650,22 +618,6 @@
   {
     "name": "Shourya Rathore",
     "phone": "9602919347",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Parikshit Singh Rathore",
-    "phone": "7728855932",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Surender Kumar Bhatiwara",
-    "phone": "916009834909",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
@@ -680,56 +632,48 @@
     "cover_charge": 1000
   },
   {
-    "name": "Kashvi",
-    "phone": "9195450224319",
+    "name": "Shubham",
+    "phone": "9660738440",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Nysa",
-    "phone": "919711190050",
+    "name": "Shubhangi Shankar",
+    "phone": "8799001147",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Jotsaroop",
-    "phone": "9198454272846",
+    "name": "Sumit Kumar",
+    "phone": "9508265561",
+    "email": "Sumitbvm23@gmail.com",
+    "reg_no": "2420020099",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Surender Kumar Bhatiwara",
+    "phone": "916009834909",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Hargun Kaur",
-    "phone": "9217003326",
-    "email": null,
+    "name": "Swastik Singh Chauhan",
+    "phone": "7992136922",
+    "email": "swastiksinghchauhan22@gmail.com",
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Prisha Dawar",
-    "phone": "9953944255",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Harsimratt Kaur",
-    "phone": "9541217737",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Jiya Arora",
-    "phone": "9720231820",
+    "name": "Tanmay Singh",
+    "phone": "7879196720",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
@@ -744,144 +688,120 @@
     "cover_charge": 1000
   },
   {
-    "name": "Mugdha Behl",
-    "phone": "6377735947",
+    "name": "Tijil Goel",
+    "phone": "9354080409",
+    "email": "Goyaltijil2@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Trupti Rothe",
+    "phone": "918793061588",
+    "email": null,
+    "reg_no": "2425060093",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Uday",
+    "phone": "8318619069",
+    "email": "Us328155@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Vandit",
+    "phone": "9625479457",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Ishaan Arora",
-    "phone": "9310765620",
+    "name": "Vedanshi Rajput",
+    "phone": "8178016577",
+    "email": "rajputvedanshi508@gmail.com",
+    "reg_no": "23FE10CAI00218",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Vihan Choudhary",
+    "phone": "7023372334",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Deepanshu Singh",
-    "phone": null,
-    "email": null,
-    "reg_no": "23FE10ITE00148",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Satvik Yadav",
-    "phone": null,
-    "email": null,
-    "reg_no": "23FE10ITE00169",
-    "guest_type": "regular",
-    "cover_charge": 1000
-  },
-  {
-    "name": "Navneet Chhabra",
-    "phone": "8955314898",
+    "name": "Viraj Tyagi",
+    "phone": "6397796318",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Aanya Sajwan",
-    "phone": "9664130945",
+    "name": "Viru Chaudhary",
+    "phone": "9887537482",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Lohima Saini",
-    "phone": "9521760569",
+    "name": "Vishal Singh",
+    "phone": "7033767753",
+    "email": "vis2000hal@gmail.com",
+    "reg_no": "2421030065",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Vishwajeet Nandal",
+    "phone": "9466755707",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Chammi Farhan",
-    "phone": "8472009042",
+    "name": "Yadvi",
+    "phone": "8427043757",
+    "email": "arorayadvi2007@gmail.com",
+    "reg_no": "2505060002",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Yash Malik",
+    "phone": "7983429233",
     "email": null,
     "reg_no": null,
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Arham Faisal",
-    "phone": "9650697171",
-    "email": null,
-    "reg_no": null,
+    "name": "Yukthi Jain",
+    "phone": "9390377079",
+    "email": "yukthi.2608030064@muj.manipal.edu",
+    "reg_no": "2608030064",
     "guest_type": "regular",
     "cover_charge": 1000
   },
   {
-    "name": "Arghya Sinha",
-    "phone": "7757063297",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Ansh Kapoor",
-    "phone": "9560415447",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Kabir Anand",
-    "phone": "9971101777",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Shaantanu Choudhary",
-    "phone": "8929970445",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Nihal",
-    "phone": "9561322206",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Anirudh Raghuraman",
-    "phone": "6387534385",
-    "email": null,
-    "reg_no": null,
+    "name": "Aarav Bihani",
+    "phone": "8240725296",
+    "email": "bihaniaarav1@gmail.com",
+    "reg_no": "2502051398",
     "guest_type": "paid",
     "cover_charge": 0
   },
   {
     "name": "Aarush",
     "phone": "9650063880",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Shiven Singh",
-    "phone": "8828377642",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Aviral Thapliyal",
-    "phone": "9971290321",
     "email": null,
     "reg_no": null,
     "guest_type": "paid",
@@ -896,83 +816,11 @@
     "cover_charge": 0
   },
   {
-    "name": "Ayush",
-    "phone": "6261712600",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Madhav",
-    "phone": "9571121021",
-    "email": "madhavpareekofficial@gmail.com",
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Anant Agarwal",
-    "phone": "9351770489",
-    "email": "aceinthechat@gmail.com",
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Nishit Sharma",
-    "phone": null,
-    "email": "nishitsharmaji@gmail.com",
-    "reg_no": "2602050293",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Agastya Raj",
-    "phone": "9431037200",
-    "email": "agastya.2606020057@muj.manipal.edu",
-    "reg_no": "2606020057",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Atharv Shriavstava",
-    "phone": null,
-    "email": "atharvshrivastav995@gmail.com",
-    "reg_no": "2602051206",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Siddharth Prajapat",
-    "phone": null,
-    "email": "siddhu7073@gmail.com",
-    "reg_no": "2605050005",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
     "name": "Aditya Raj Singh",
     "phone": null,
     "email": "raj07ballia@gmail.com",
     "reg_no": "2602052001",
     "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Avaneesh Jangale",
-    "phone": null,
-    "email": "avaneeshjangale31@gmail.com",
-    "reg_no": "2603110079",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Palak Daga",
-    "phone": "8949478400",
-    "email": "dagapalak01@gmail.com",
-    "reg_no": "2506030006",
-    "guest_type": "backstage_special",
     "cover_charge": 0
   },
   {
@@ -984,42 +832,18 @@
     "cover_charge": 0
   },
   {
-    "name": "Kushagra Gautam",
-    "phone": "8882842266",
-    "email": "kushagrag340@gmail.com",
-    "reg_no": "2503120023",
+    "name": "Ajitesh Singh",
+    "phone": "6307202355",
+    "email": "ajiteshsingh1909@gmail.com",
+    "reg_no": "2602052005",
     "guest_type": "paid",
     "cover_charge": 0
   },
   {
-    "name": "Kanishk Saini",
-    "phone": "7006912156",
-    "email": "sainikanishk2508@gmail.com",
-    "reg_no": "2602050993",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Deshna Jain",
-    "phone": "9079703773",
-    "email": "jaindeshna761@gmail.com",
-    "reg_no": "2602050675",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Kevin Dhuria",
-    "phone": "9992300606",
-    "email": "kevin.2503130025@muj.manipal.edu",
-    "reg_no": "2503130025",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Shretima Raj",
-    "phone": "9798507577",
-    "email": "shretima.2503130106@muj.manipal.edu",
-    "reg_no": "2503130106",
+    "name": "Akshat Shringi",
+    "phone": null,
+    "email": null,
+    "reg_no": "2421030166",
     "guest_type": "paid",
     "cover_charge": 0
   },
@@ -1032,10 +856,130 @@
     "cover_charge": 0
   },
   {
-    "name": "Manpreet Kakkar",
-    "phone": "9988007769",
-    "email": "manpreet.2506010096@muj.manipal.edu",
-    "reg_no": "2506010096",
+    "name": "Anant Agarwal",
+    "phone": "9351770489",
+    "email": "aceinthechat@gmail.com",
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Angad Singh",
+    "phone": null,
+    "email": "angad.singh3348@gmail.com",
+    "reg_no": "2602051474",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Anirudh Raghuraman",
+    "phone": "6387534385",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Ansh Kapoor",
+    "phone": "9560415447",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Aradhana",
+    "phone": "9535615960",
+    "email": "aradhanamish2@gmail.com",
+    "reg_no": "2602051109",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Arghya Sinha",
+    "phone": "7757063297",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Arhaan Jan",
+    "phone": "9906767274",
+    "email": "arhaanjanx@gmail.com",
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Aryaman Agarwal",
+    "phone": "8400295175",
+    "email": "aryamanmf60@gmail.com",
+    "reg_no": "2602051514",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Atharv Shriavstava",
+    "phone": null,
+    "email": "atharvshrivastav995@gmail.com",
+    "reg_no": "2602051206",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Atharva Agarwal",
+    "phone": "7980674519",
+    "email": "atharva.01agarwal@gmail.com",
+    "reg_no": "2602051342",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Avaneesh Jangale",
+    "phone": null,
+    "email": "avaneeshjangale31@gmail.com",
+    "reg_no": "2603110079",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Aviral Thapliyal",
+    "phone": "9971290321",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Ayush",
+    "phone": "6261712600",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Chetanya",
+    "phone": "9255138063",
+    "email": "Chetanyanarang082@gmail.com",
+    "reg_no": "2606010175",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Chinmay Raturi",
+    "phone": "9149136793",
+    "email": "raturichinmay07@gmail.com",
+    "reg_no": "2602052507",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Deshna Jain",
+    "phone": "9079703773",
+    "email": "jaindeshna761@gmail.com",
+    "reg_no": "2602050675",
     "guest_type": "paid",
     "cover_charge": 0
   },
@@ -1044,14 +988,6 @@
     "phone": "9000086489",
     "email": "harsh.2503130024@muj.manipal.edu",
     "reg_no": "2503130024",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Tushar Khowal",
-    "phone": "8076111782",
-    "email": "tushar.2502050218@muj.manipal.edu",
-    "reg_no": "2502050218",
     "guest_type": "paid",
     "cover_charge": 0
   },
@@ -1072,6 +1008,206 @@
     "cover_charge": 0
   },
   {
+    "name": "Kabir Anand",
+    "phone": "9971101777",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Kanishk Saini",
+    "phone": "7006912156",
+    "email": "sainikanishk2508@gmail.com",
+    "reg_no": "2602050993",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Kevin Dhuria",
+    "phone": "9992300606",
+    "email": "kevin.2503130025@muj.manipal.edu",
+    "reg_no": "2503130025",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Kushagra Gautam",
+    "phone": "8882842266",
+    "email": "kushagrag340@gmail.com",
+    "reg_no": "2503120023",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Madhav",
+    "phone": "9571121021",
+    "email": "madhavpareekofficial@gmail.com",
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Mannat",
+    "phone": "9810856879",
+    "email": "immannat08@gmail.com",
+    "reg_no": "2608040011",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Manpreet Kakkar",
+    "phone": "9988007769",
+    "email": "manpreet.2506010096@muj.manipal.edu",
+    "reg_no": "2506010096",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Monisha",
+    "phone": "9560500262",
+    "email": "monishaasrivastava@gmail.com",
+    "reg_no": "2502050244",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Naman Pareek",
+    "phone": "9431037200",
+    "email": "agastya.2606020057@muj.manipal.edu",
+    "reg_no": "2606020057",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Navay Grover",
+    "phone": "9773724435",
+    "email": "navay.2603120002@muj.manipal.edu",
+    "reg_no": "2603120002",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Nihal",
+    "phone": "9561322206",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Nishit Sharma",
+    "phone": null,
+    "email": "nishitsharmaji@gmail.com",
+    "reg_no": "2602050293",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Nyasa Chhokar",
+    "phone": "8368020842",
+    "email": "nyasachhokar27@gmail.com",
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Om Banger",
+    "phone": "8629947808",
+    "email": "Ombanger941@gmail.com",
+    "reg_no": "2603080344",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Pihu",
+    "phone": "8305057620",
+    "email": "pihujaipur2008@gmail.com",
+    "reg_no": "2602050945",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Piyush Parida",
+    "phone": null,
+    "email": null,
+    "reg_no": "2502050235",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Prantica Samanta",
+    "phone": "7857086107",
+    "email": "prantica12@gmail.com",
+    "reg_no": "2608050029",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Raghavraj Singh Deval",
+    "phone": "8854034041",
+    "email": "raghavraj7311@gmail.com",
+    "reg_no": "2608050052",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Ranveer Dhull",
+    "phone": "8307263105",
+    "email": "dhullranveer785@gmail.com",
+    "reg_no": "2602060029",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Riya Baiswar",
+    "phone": "7068002603",
+    "email": "riyabaiswar000@gmail.com",
+    "reg_no": "2502052564",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Rushil Sharma",
+    "phone": "9522302201",
+    "email": "Srushil643@gmail.com",
+    "reg_no": "2602052242",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Sahil Janwani",
+    "phone": "7296998906",
+    "email": "sahiljanwani1234@gmail.com",
+    "reg_no": "2608050011",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Samriddhi Chaturvedi",
+    "phone": "6393174198",
+    "email": "csamriddhi444@gmail.com",
+    "reg_no": "2502052358",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Samyak Malu",
+    "phone": "8767343890",
+    "email": "malusamyak@gmail.com",
+    "reg_no": "2602051138",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Shaantanu Choudhary",
+    "phone": "8929970445",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
     "name": "Shambhavi Savarna",
     "phone": "7389433509",
     "email": "Shambhavisavarna64@gmail.com",
@@ -1080,9 +1216,113 @@
     "cover_charge": 0
   },
   {
-    "name": "Kalash Choudhary",
-    "phone": "6267027435",
-    "email": "kalash8465choudhary@gmail.com",
+    "name": "Shivansh Singhal",
+    "phone": "7637005777",
+    "email": "Shivansh.singhal30@gmail.com",
+    "reg_no": "2606050015",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Shivansh Tomar",
+    "phone": "7011275694",
+    "email": "shivanshgurukul21@gmail.com",
+    "reg_no": "2602051866",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Shiven Singh",
+    "phone": "8828377642",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Shretima Raj",
+    "phone": "9798507577",
+    "email": "shretima.2503130106@muj.manipal.edu",
+    "reg_no": "2503130106",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Siddharth Prajapat",
+    "phone": null,
+    "email": "siddhu7073@gmail.com",
+    "reg_no": "2605050005",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Tanmay Midha",
+    "phone": "8810334147",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Tushar Khowal",
+    "phone": "8076111782",
+    "email": "tushar.2502050218@muj.manipal.edu",
+    "reg_no": "2502050218",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Vidushi Devrani",
+    "phone": "9559990507",
+    "email": "vidushi.devrani@gmail.com",
+    "reg_no": "2602050574",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Yash Khanna",
+    "phone": "9821031827",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Yashi",
+    "phone": "8828903513",
+    "email": "yashiroy746@gmail.com",
+    "reg_no": "2502052077",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Zinnia Batra",
+    "phone": "9871177886",
+    "email": "z.batra97@gmail.com",
+    "reg_no": "2603110055",
+    "guest_type": "paid",
+    "cover_charge": 0
+  },
+  {
+    "name": "Aarav",
+    "phone": "9870560066",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "backstage_special",
+    "cover_charge": 0
+  },
+  {
+    "name": "Akktri Pokhariya",
+    "phone": "8791500215",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "backstage_special",
+    "cover_charge": 0
+  },
+  {
+    "name": "Anmol Samant",
+    "phone": "7668063718",
+    "email": null,
     "reg_no": null,
     "guest_type": "backstage_special",
     "cover_charge": 0
@@ -1096,248 +1336,8 @@
     "cover_charge": 0
   },
   {
-    "name": "Navay Grover",
-    "phone": "9773724435",
-    "email": "navay.2603120002@muj.manipal.edu",
-    "reg_no": "2603120002",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Chetanya",
-    "phone": "9255138063",
-    "email": "Chetanyanarang082@gmail.com",
-    "reg_no": "2606010175",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Nyasa Chhokar",
-    "phone": "8368020842",
-    "email": "nyasachhokar27@gmail.com",
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Shivansh Tomar",
-    "phone": "7011275694",
-    "email": "shivanshgurukul21@gmail.com",
-    "reg_no": "2602051866",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Raghavraj Singh Deval",
-    "phone": "8854034041",
-    "email": "raghavraj7311@gmail.com",
-    "reg_no": "2608050052",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Aryaman Agarwal",
-    "phone": "8400295175",
-    "email": "aryamanmf60@gmail.com",
-    "reg_no": "2602051514",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Ajitesh Singh",
-    "phone": "6307202355",
-    "email": "ajiteshsingh1909@gmail.com",
-    "reg_no": "2602052005",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Sahil Janwani",
-    "phone": "7296998906",
-    "email": "sahiljanwani1234@gmail.com",
-    "reg_no": "2608050011",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Aarav Bihani",
-    "phone": "8240725296",
-    "email": "bihaniaarav1@gmail.com",
-    "reg_no": "2502051398",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Atharva Agarwal",
-    "phone": "7980674519",
-    "email": "atharva.01agarwal@gmail.com",
-    "reg_no": "2602051342",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Mannat",
-    "phone": "9810856879",
-    "email": "immannat08@gmail.com",
-    "reg_no": "2608040011",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Prantica Samanta",
-    "phone": "7857086107",
-    "email": "prantica12@gmail.com",
-    "reg_no": "2608050029",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Samriddhi Chaturvedi",
-    "phone": "6393174198",
-    "email": "csamriddhi444@gmail.com",
-    "reg_no": "2502052358",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Monisha",
-    "phone": "9560500262",
-    "email": "monishaasrivastava@gmail.com",
-    "reg_no": "2502050244",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Riya Baiswar",
-    "phone": "7068002603",
-    "email": "riyabaiswar000@gmail.com",
-    "reg_no": "2502052564",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Yashi",
-    "phone": "8828903513",
-    "email": "yashiroy746@gmail.com",
-    "reg_no": "2502052077",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Arhaan Jan",
-    "phone": "9906767274",
-    "email": "arhaanjanx@gmail.com",
-    "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Aradhana",
-    "phone": "9535615960",
-    "email": "aradhanamish2@gmail.com",
-    "reg_no": "2602051109",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Chinmay Raturi",
-    "phone": "9149136793",
-    "email": "raturichinmay07@gmail.com",
-    "reg_no": "2602052507",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Samyak Malu",
-    "phone": "8767343890",
-    "email": "malusamyak@gmail.com",
-    "reg_no": "2602051138",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Shivansh Singhal",
-    "phone": "7637005777",
-    "email": "Shivansh.singhal30@gmail.com",
-    "reg_no": "2606050015",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Zinnia Batra",
-    "phone": "9871177886",
-    "email": "z.batra97@gmail.com",
-    "reg_no": "2603110055",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Vidushi Devrani",
-    "phone": "9559990507",
-    "email": "vidushi.devrani@gmail.com",
-    "reg_no": "2602050574",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Pihu",
-    "phone": "8305057620",
-    "email": "pihujaipur2008@gmail.com",
-    "reg_no": "2602050945",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Rushil Sharma",
-    "phone": "9522302201",
-    "email": "Srushil643@gmail.com",
-    "reg_no": "2602052242",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Ranveer Dhull",
-    "phone": "8307263105",
-    "email": "dhullranveer785@gmail.com",
-    "reg_no": "2602060029",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Angad Singh",
-    "phone": null,
-    "email": "angad.singh3348@gmail.com",
-    "reg_no": "2602051474",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Om Banger",
-    "phone": "8629947808",
-    "email": "Ombanger941@gmail.com",
-    "reg_no": "2603080344",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Manan Muradia",
-    "phone": "8178011299",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "backstage_special",
-    "cover_charge": 0
-  },
-  {
     "name": "Aryan Prakash",
     "phone": "9667123338",
-    "email": null,
-    "reg_no": null,
-    "guest_type": "backstage_special",
-    "cover_charge": 0
-  },
-  {
-    "name": "Aarav",
-    "phone": "9870560066",
     "email": null,
     "reg_no": null,
     "guest_type": "backstage_special",
@@ -1352,43 +1352,43 @@
     "cover_charge": 0
   },
   {
-    "name": "Sarisha",
-    "phone": "9521037511",
+    "name": "Estartha Aich",
+    "phone": "918822328738",
     "email": null,
     "reg_no": null,
     "guest_type": "backstage_special",
     "cover_charge": 0
   },
   {
-    "name": "Tanmay Midha",
-    "phone": "8810334147",
+    "name": "Kalash Choudhary",
+    "phone": "6267027435",
+    "email": "kalash8465choudhary@gmail.com",
+    "reg_no": null,
+    "guest_type": "backstage_special",
+    "cover_charge": 0
+  },
+  {
+    "name": "Manan Muradia",
+    "phone": "8178011299",
     "email": null,
     "reg_no": null,
-    "guest_type": "paid",
+    "guest_type": "backstage_special",
     "cover_charge": 0
   },
   {
-    "name": "Yash Khanna",
-    "phone": "9821031827",
+    "name": "Palak Daga",
+    "phone": "8949478400",
+    "email": "dagapalak01@gmail.com",
+    "reg_no": "2506030006",
+    "guest_type": "backstage_special",
+    "cover_charge": 0
+  },
+  {
+    "name": "Sarisha",
+    "phone": "9521037511",
     "email": null,
     "reg_no": null,
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Akshat Shringi",
-    "phone": null,
-    "email": null,
-    "reg_no": "2421030166",
-    "guest_type": "paid",
-    "cover_charge": 0
-  },
-  {
-    "name": "Piyush Parida",
-    "phone": null,
-    "email": null,
-    "reg_no": "2502050235",
-    "guest_type": "paid",
+    "guest_type": "backstage_special",
     "cover_charge": 0
   }
 ]
