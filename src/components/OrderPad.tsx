@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { createOrderAction, type OrderStockDelta } from "@/actions/orders";
 import { StockBadge } from "@/components/StockBadge";
 import { cn, formatInr, formatOrderNumber } from "@/lib/format";
@@ -67,6 +67,11 @@ export function OrderPad({
   const [cartOpen, setCartOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const idempotencyKey = useRef(crypto.randomUUID());
+
+  useEffect(() => {
+    setProducts(initialProducts);
+    setStats(initialStats);
+  }, [initialProducts, initialStats]);
 
   function setQty(id: string, next: number) {
     setCart((prev) => {

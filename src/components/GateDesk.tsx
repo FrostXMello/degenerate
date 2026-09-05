@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import {
   addPassAction,
   checkInPassAction,
@@ -38,6 +38,11 @@ export function GateDesk({
   const [message, setMessage] = useState<string | null>(null);
   const [messageKind, setMessageKind] = useState<"ok" | "warn" | "err">("ok");
   const [pending, startTransition] = useTransition();
+
+  useEffect(() => {
+    setPasses(initialPasses);
+    setStats(initialStats);
+  }, [initialPasses, initialStats]);
 
   const canAdd = user.role === "ADMIN" || user.canAddGateEntries;
   const canRemove = user.role === "ADMIN" || user.canRemoveGateEntries;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import {
   createGateStaffAction,
@@ -38,6 +38,10 @@ export function GateStaffAdmin({
   const [staff, setStaff] = useState(initialStaff);
   const [message, setMessage] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+
+  useEffect(() => {
+    setStaff(initialStaff);
+  }, [initialStaff]);
 
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
