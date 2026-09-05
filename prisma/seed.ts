@@ -47,6 +47,18 @@ const beer: BeerSeed[] = [
   { name: "Kingfisher", fullName: "Kingfisher", slug: "kingfisher", units: 120, sizeMl: null },
 ];
 
+/** Cash/UPI + coupon (×50) unit prices */
+const PRICE_TABLE: Record<string, { cash: number; coupon: number }> = {
+  kingfisher: { cash: 269, coupon: 300 },
+  heineken: { cash: 299, coupon: 300 },
+  "red-label": { cash: 219, coupon: 250 },
+  jameson: { cash: 279, coupon: 300 },
+  "smirnoff-plain": { cash: 119, coupon: 150 },
+  "smirnoff-minty-jamun": { cash: 169, coupon: 200 },
+  "smirnoff-mango": { cash: 169, coupon: 200 },
+  absolut: { cash: 219, coupon: 250 },
+};
+
 function normalizePhone(phone: string | null | undefined) {
   if (!phone) return null;
   const digits = phone.replace(/[^\d]/g, "");
@@ -218,6 +230,25 @@ async function main() {
       },
     });
   }
+
+  // Apply / refresh cash + coupon prices
+  for (const [slug, amounts] of Object.entries(PRICE_TABLE)) {
+    const product = await prisma.product.findUnique({ where: { slug } });
+    if (!product) continue;
+    await prisma.price.updateMany({
+      where: { productId: product.id, active: true },
+      data: { active: false },
+    });
+    await prisma.price.create({
+      data: {
+        productId: product.id,
+        price: amounts.cash,
+        couponPrice: amounts.coupon,
+        active: true,
+      },
+    });
+  }
+  console.log(`Prices set for ${Object.keys(PRICE_TABLE).length} drinks`);
 
   // Guest list seed (idempotent by phone / regNo / name)
   const guestPath = join(__dirname, "guest-list.json");

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/auth";
+import { requireAdmin, requireSession } from "@/lib/auth";
 import { DEFAULT_BOTTLE_ML, liquorVolumeFromBottles, PEG_ML } from "@/lib/stock-math";
 import type { TrackingType } from "@prisma/client";
 
@@ -34,13 +34,40 @@ async function uniqueSlug(name: string) {
   return slug;
 }
 
-export async function setPriceAction(productId: string, price: number) {
-  const user = await requireSession();
-  if (!Number.isInteger(price) || price < 0) {
-    return { ok: false as const, error: "Price must be a whole rupee amount." };
+function parseWholeRupees(value: number, label: string) {
+  if (!Number.isInteger(value) || value < 0) {
+    return { ok: false as const, error: `${label} must be a whole rupee amount.` };
+  }
+  return { ok: true as const, value };
+}
+
+/** Admin sets cash/UPI + coupon prices. Coupon must be a multiple of 50 when set. */
+export async function setPriceAction(
+  productId: string,
+  cashPrice: number,
+  couponPrice: number | null,
+) {
+  try {
+    await requireAdmin();
+  } catch {
+    return { ok: false as const, error: "Only admin can change prices." };
+  }
+
+  const cash = parseWholeRupees(cashPrice, "Cash/UPI price");
+  if (!cash.ok) return cash;
+
+  let coupon: number | null = null;
+  if (couponPrice != null) {
+    const parsed = parseWholeRupees(couponPrice, "Coupon price");
+    if (!parsed.ok) return parsed;
+    if (parsed.value % 50 !== 0) {
+      return { ok: false as const, error: "Coupon price must be a multiple of ₹50." };
+    }
+    coupon = parsed.value;
   }
 
   try {
+    const user = await requireSession();
     await prisma.$transaction(async (tx) => {
       await tx.price.updateMany({
         where: { productId, active: true },
@@ -49,7 +76,8 @@ export async function setPriceAction(productId: string, price: number) {
       await tx.price.create({
         data: {
           productId,
-          price,
+          price: cash.value,
+          couponPrice: coupon,
           active: true,
           createdById: user.id,
         },
@@ -64,7 +92,11 @@ export async function setPriceAction(productId: string, price: number) {
 }
 
 export async function clearPriceAction(productId: string) {
-  await requireSession();
+  try {
+    await requireAdmin();
+  } catch {
+    return { ok: false as const, error: "Only admin can change prices." };
+  }
   try {
     await prisma.price.updateMany({
       where: { productId, active: true },
@@ -118,6 +150,7 @@ export async function createProductAction(input: {
   initialBottles?: number;
   initialUnits?: number;
   price?: number | null;
+  couponPrice?: number | null;
 }) {
   const user = await requireSession();
   const name = input.name.trim();
@@ -128,6 +161,15 @@ export async function createProductAction(input: {
   const trackingType = input.trackingType;
   if (trackingType !== "LIQUOR" && trackingType !== "BEER") {
     return { ok: false as const, error: "Choose liquor or beer/unit drink." };
+  }
+
+  if (input.couponPrice != null) {
+    if (!Number.isInteger(input.couponPrice) || input.couponPrice < 0) {
+      return { ok: false as const, error: "Coupon price must be a whole rupee amount." };
+    }
+    if (input.couponPrice % 50 !== 0) {
+      return { ok: false as const, error: "Coupon price must be a multiple of ₹50." };
+    }
   }
 
   try {
@@ -176,6 +218,7 @@ export async function createProductAction(input: {
             data: {
               productId: created.id,
               price: input.price,
+              couponPrice: input.couponPrice ?? null,
               active: true,
               createdById: user.id,
             },
@@ -225,6 +268,7 @@ export async function createProductAction(input: {
           data: {
             productId: created.id,
             price: input.price,
+            couponPrice: input.couponPrice ?? null,
             active: true,
             createdById: user.id,
           },

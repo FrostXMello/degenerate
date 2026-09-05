@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireSession } from "@/lib/auth";
 import { liquorVolumeFromPegs, PEG_ML } from "@/lib/stock-math";
-import type { Prisma, TrackingType } from "@prisma/client";
+import type { Prisma, TrackingType, PaymentMethod } from "@prisma/client";
 
 export type CartItemInput = {
   productId: string;
@@ -17,6 +17,17 @@ export type OrderStockDelta = {
   trackingType: TrackingType;
   volumeMl: number | null;
 };
+
+function unitPriceFor(
+  row: { price: number; couponPrice: number | null } | undefined,
+  paymentMethod: PaymentMethod,
+) {
+  if (!row) return 0;
+  if (paymentMethod === "COUPON") {
+    return row.couponPrice ?? row.price;
+  }
+  return row.price;
+}
 
 function bumpCaches() {
   revalidatePath("/dashboard");
@@ -48,8 +59,11 @@ async function applyStockDelta(
 export async function createOrderAction(input: {
   items: CartItemInput[];
   idempotencyKey: string;
+  paymentMethod?: PaymentMethod;
 }) {
   const user = await requireSession();
+  const paymentMethod: PaymentMethod =
+    input.paymentMethod === "COUPON" ? "COUPON" : "CASH_UPI";
 
   if (!input.idempotencyKey) {
     return { ok: false as const, error: "ORDER NOT SAVED. Missing request key. Try again." };
@@ -64,12 +78,13 @@ export async function createOrderAction(input: {
     const result = await prisma.$transaction(async (tx) => {
       const existing = await tx.order.findUnique({
         where: { idempotencyKey: input.idempotencyKey },
-        select: { orderNumber: true, total: true },
+        select: { orderNumber: true, total: true, paymentMethod: true },
       });
       if (existing) {
         return {
           orderNumber: existing.orderNumber,
           total: existing.total,
+          paymentMethod: existing.paymentMethod,
           pegs: 0,
           beer: 0,
           deltas: [] as OrderStockDelta[],
@@ -97,7 +112,7 @@ export async function createOrderAction(input: {
       for (const item of items) {
         const product = byId.get(item.productId);
         if (!product) throw new Error("Product is unavailable");
-        const price = product.prices[0]?.price ?? 0;
+        const price = unitPriceFor(product.prices[0], paymentMethod);
         const unit = product.trackingType === "LIQUOR" ? "peg" : "unit";
         const volumeConsumedMl =
           product.trackingType === "LIQUOR"
@@ -132,6 +147,7 @@ export async function createOrderAction(input: {
         data: {
           orderNumber,
           total,
+          paymentMethod,
           status: "COMPLETED",
           idempotencyKey: input.idempotencyKey,
           createdById: user.id,
@@ -151,7 +167,7 @@ export async function createOrderAction(input: {
 
       await Promise.all(lines.map((line) => applyStockDelta(tx, line.product, line.quantity)));
 
-      return { orderNumber, total, pegs, beer, deltas, duplicate: false };
+      return { orderNumber, total, paymentMethod, pegs, beer, deltas, duplicate: false };
     });
 
     bumpCaches();
@@ -160,6 +176,7 @@ export async function createOrderAction(input: {
       ok: true as const,
       orderNumber: result.orderNumber,
       total: result.total,
+      paymentMethod: result.paymentMethod,
       pegs: result.pegs,
       beer: result.beer,
       deltas: result.deltas,
@@ -249,7 +266,10 @@ export async function updateOrderAction(orderId: string, items: CartItemInput[])
         const product = byId.get(item.productId);
         if (!product) throw new Error("Product missing");
         const existing = order.items.find((i) => i.productId === item.productId);
-        const unitPrice = existing?.unitPrice ?? product.prices[0]?.price ?? 0;
+        const catalog = product.prices[0];
+        const unitPrice =
+          existing?.unitPrice ??
+          unitPriceFor(catalog, order.paymentMethod);
         const unit = product.trackingType === "LIQUOR" ? "peg" : "unit";
         const volumeConsumedMl =
           product.trackingType === "LIQUOR"

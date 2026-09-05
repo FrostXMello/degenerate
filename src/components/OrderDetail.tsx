@@ -24,6 +24,7 @@ export function OrderDetail({
     id: string;
     orderNumber: number;
     total: number;
+    paymentMethod: "CASH_UPI" | "COUPON";
     status: "COMPLETED" | "VOID";
     createdAt: string;
     createdByName: string | null;
@@ -49,7 +50,11 @@ export function OrderDetail({
     .map((p) => {
       const existing = order.items.find((i) => i.productId === p.id);
       const quantity = qty[p.id];
-      const unitPrice = existing?.unitPrice ?? p.price ?? 0;
+      const catalogPrice =
+        order.paymentMethod === "COUPON"
+          ? (p.couponPrice ?? p.price ?? 0)
+          : (p.price ?? 0);
+      const unitPrice = existing?.unitPrice ?? catalogPrice;
       return {
         productId: p.id,
         name: existing?.name ?? p.name,
@@ -89,7 +94,8 @@ export function OrderDetail({
         <p className="text-xs tracking-[0.35em] text-gold uppercase">Order</p>
         <h1 className="font-display text-5xl leading-none">{formatOrderNumber(order.orderNumber)}</h1>
         <p className="text-sm text-mute mt-2">
-          {formatDateTime(order.createdAt)} · {order.createdByName || "Unknown"} · {order.status}
+          {formatDateTime(order.createdAt)} · {order.createdByName || "Unknown"} · {order.status} ·{" "}
+          {order.paymentMethod === "COUPON" ? "Coupon" : "Cash/UPI"}
         </p>
         {order.status === "VOID" && (
           <p className="mt-3 rounded-xl bg-red-500/15 border border-red-400/30 px-4 py-3 text-sm text-red-200">

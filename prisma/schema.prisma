@@ -24,6 +24,11 @@ enum OrderStatus {
   VOID
 }
 
+enum PaymentMethod {
+  CASH_UPI
+  COUPON
+}
+
 enum AdjustmentType {
   ADD
   REMOVE
@@ -108,7 +113,10 @@ model Price {
   id            String   @id @default(cuid())
   productId     String
   product       Product  @relation(fields: [productId], references: [id])
+  /// Cash / UPI unit price (₹)
   price         Int
+  /// Coupon unit price (₹) — typically a multiple of 50
+  couponPrice   Int?
   effectiveFrom DateTime @default(now())
   active        Boolean  @default(true)
   createdById   String?
@@ -145,19 +153,20 @@ model StockAdjustment {
 }
 
 model Order {
-  id             String      @id @default(cuid())
-  orderNumber    Int         @unique
+  id             String         @id @default(cuid())
+  orderNumber    Int            @unique
   total          Int
-  status         OrderStatus @default(COMPLETED)
+  paymentMethod  PaymentMethod  @default(CASH_UPI)
+  status         OrderStatus    @default(COMPLETED)
   voidReason     String?
   voidedAt       DateTime?
-  idempotencyKey String?     @unique
+  idempotencyKey String?        @unique
   createdById    String?
-  createdBy      User?       @relation("OrderCreatedBy", fields: [createdById], references: [id])
+  createdBy      User?          @relation("OrderCreatedBy", fields: [createdById], references: [id])
   voidedById     String?
-  voidedBy       User?       @relation("OrderVoidedBy", fields: [voidedById], references: [id])
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  voidedBy       User?          @relation("OrderVoidedBy", fields: [voidedById], references: [id])
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
   items          OrderItem[]
 
   @@index([createdAt])

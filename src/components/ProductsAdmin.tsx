@@ -10,34 +10,43 @@ import {
 } from "@/actions/products";
 import type { ProductCard } from "@/lib/data";
 import type { TrackingType } from "@prisma/client";
+import { formatInr } from "@/lib/format";
 
-export function ProductsAdmin({ products }: { products: ProductCard[] }) {
+export function ProductsAdmin({
+  products,
+  isAdmin,
+}: {
+  products: ProductCard[];
+  isAdmin: boolean;
+}) {
   return (
     <div>
       <p className="text-xs tracking-[0.35em] text-gold uppercase">Catalog</p>
       <h1 className="font-display text-5xl leading-none">Products & Pricing</h1>
       <p className="text-sm text-mute mt-2 max-w-2xl">
-        Add any drink that shows up at the bar. Prices are optional — you can still record quantities tonight and set money later.
+        Cash/UPI and coupon prices per drink. Coupon prices are multiples of ₹50.{" "}
+        {isAdmin ? "You can edit prices." : "Only admin can change prices."}
       </p>
 
-      <AddDrinkForm />
+      <AddDrinkForm isAdmin={isAdmin} />
 
       <div className="mt-6 space-y-3">
         {products.map((product) => (
-          <ProductRow key={product.id} product={product} />
+          <ProductRow key={product.id} product={product} isAdmin={isAdmin} />
         ))}
       </div>
     </div>
   );
 }
 
-function AddDrinkForm() {
+function AddDrinkForm({ isAdmin }: { isAdmin: boolean }) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [trackingType, setTrackingType] = useState<TrackingType>("LIQUOR");
   const [opening, setOpening] = useState("0");
   const [sizeMl, setSizeMl] = useState("750");
   const [price, setPrice] = useState("");
+  const [couponPrice, setCouponPrice] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
@@ -45,6 +54,7 @@ function AddDrinkForm() {
     setMessage(null);
     startTransition(async () => {
       const priceValue = price.trim() === "" ? null : Number(price);
+      const couponValue = couponPrice.trim() === "" ? null : Number(couponPrice);
       const result = await createProductAction({
         name,
         trackingType,
@@ -52,7 +62,12 @@ function AddDrinkForm() {
         sizeMl: trackingType === "BEER" ? (sizeMl.trim() === "" ? null : Number(sizeMl)) : Number(sizeMl) || 750,
         initialBottles: trackingType === "LIQUOR" ? Number(opening) || 0 : undefined,
         initialUnits: trackingType === "BEER" ? Number(opening) || 0 : undefined,
-        price: priceValue != null && Number.isFinite(priceValue) ? Math.round(priceValue) : null,
+        price:
+          isAdmin && priceValue != null && Number.isFinite(priceValue) ? Math.round(priceValue) : null,
+        couponPrice:
+          isAdmin && couponValue != null && Number.isFinite(couponValue)
+            ? Math.round(couponValue)
+            : null,
       });
       if (!result.ok) {
         setMessage(result.error);
@@ -61,6 +76,7 @@ function AddDrinkForm() {
       setName("");
       setOpening("0");
       setPrice("");
+      setCouponPrice("");
       setMessage("Drink added — it is now on New Order and Stock.");
       router.refresh();
     });
@@ -132,20 +148,34 @@ function AddDrinkForm() {
             className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-3"
           />
         </label>
-        <label className="block">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-mute">
-            Price ₹ (optional)
-          </span>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="Leave blank to track qty only"
-            className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-3"
-          />
-        </label>
+        {isAdmin && (
+          <>
+            <label className="block">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-mute">Cash / UPI ₹</span>
+              <input
+                type="number"
+                min="0"
+                step="1"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder="Optional"
+                className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-3"
+              />
+            </label>
+            <label className="block">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-mute">Coupon ₹ (×50)</span>
+              <input
+                type="number"
+                min="0"
+                step="50"
+                value={couponPrice}
+                onChange={(e) => setCouponPrice(e.target.value)}
+                placeholder="e.g. 250, 300"
+                className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-3"
+              />
+            </label>
+          </>
+        )}
       </div>
       <button
         type="button"
@@ -159,10 +189,13 @@ function AddDrinkForm() {
   );
 }
 
-function ProductRow({ product }: { product: ProductCard }) {
+function ProductRow({ product, isAdmin }: { product: ProductCard; isAdmin: boolean }) {
   const router = useRouter();
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price == null ? "" : String(product.price));
+  const [couponPrice, setCouponPrice] = useState(
+    product.couponPrice == null ? "" : String(product.couponPrice),
+  );
   const [bottle, setBottle] = useState(String(product.bottleSizeMl || product.sizeMl || ""));
   const [low, setLow] = useState(String(product.lowThreshold));
   const [veryLow, setVeryLow] = useState(String(product.veryLowThreshold));
@@ -173,15 +206,20 @@ function ProductRow({ product }: { product: ProductCard }) {
 
   function savePrice() {
     startTransition(async () => {
-      if (price.trim() === "") {
+      if (price.trim() === "" && couponPrice.trim() === "") {
         const result = await clearPriceAction(product.id);
-        setMessage(result.ok ? "Price cleared — qty-only orders allowed" : result.error);
+        setMessage(result.ok ? "Prices cleared — qty-only orders allowed" : result.error);
         if (result.ok) router.refresh();
         return;
       }
-      const value = Number(price);
-      const result = await setPriceAction(product.id, value);
-      setMessage(result.ok ? "Price saved" : result.error);
+      if (price.trim() === "") {
+        setMessage("Cash/UPI price is required (or clear both).");
+        return;
+      }
+      const cash = Number(price);
+      const coupon = couponPrice.trim() === "" ? null : Number(couponPrice);
+      const result = await setPriceAction(product.id, cash, coupon);
+      setMessage(result.ok ? "Prices saved" : result.error);
       if (result.ok) router.refresh();
     });
   }
@@ -210,32 +248,54 @@ function ProductRow({ product }: { product: ProductCard }) {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="font-display text-3xl leading-none w-full bg-transparent border-b border-transparent focus:border-gold outline-none"
+            disabled={!isAdmin}
+            className="font-display text-3xl leading-none w-full bg-transparent border-b border-transparent focus:border-gold outline-none disabled:opacity-80"
           />
           <p className="text-xs text-mute mt-1">
             {product.fullName && product.fullName !== product.name ? `${product.fullName} · ` : ""}
             {unit}
             {!active ? " · hidden from order pad" : ""}
           </p>
+          <p className="text-xs text-mute mt-1">
+            Cash/UPI {product.price == null ? "—" : formatInr(product.price)}
+            {" · "}
+            Coupon {product.couponPrice == null ? "—" : formatInr(product.couponPrice)}
+          </p>
         </div>
         {message && <p className="text-xs text-gold">{message}</p>}
       </div>
-      <div className="mt-4 grid md:grid-cols-5 gap-3 items-end">
+      <div className="mt-4 grid md:grid-cols-6 gap-3 items-end">
         <label className="block md:col-span-2">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-mute">Price (₹ / {unit})</span>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-mute">Cash / UPI (₹ / {unit})</span>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            disabled={!isAdmin}
+            placeholder="e.g. 219"
+            className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2 disabled:opacity-60"
+          />
+        </label>
+        <label className="block md:col-span-2">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-mute">Coupon (₹ ×50)</span>
           <div className="mt-1 flex gap-2">
             <input
               type="number"
               min="0"
-              step="1"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="Qty only if blank"
-              className="w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2"
+              step="50"
+              value={couponPrice}
+              onChange={(e) => setCouponPrice(e.target.value)}
+              disabled={!isAdmin}
+              placeholder="e.g. 250"
+              className="w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2 disabled:opacity-60"
             />
-            <button onClick={savePrice} disabled={pending} className="rounded-xl bg-gold text-ink px-3 font-semibold">
-              Save
-            </button>
+            {isAdmin && (
+              <button onClick={savePrice} disabled={pending} className="rounded-xl bg-gold text-ink px-3 font-semibold">
+                Save
+              </button>
+            )}
           </div>
         </label>
         <label className="block">
@@ -248,15 +308,6 @@ function ProductRow({ product }: { product: ProductCard }) {
             value={bottle}
             onChange={(e) => setBottle(e.target.value)}
             placeholder="Configurable"
-            className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2"
-          />
-        </label>
-        <label className="block">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-mute">Low at</span>
-          <input
-            type="number"
-            value={low}
-            onChange={(e) => setLow(e.target.value)}
             className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2"
           />
         </label>
@@ -280,6 +331,17 @@ function ProductRow({ product }: { product: ProductCard }) {
               Update
             </button>
           </div>
+        </label>
+      </div>
+      <div className="mt-2">
+        <label className="inline-block">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-mute">Low at</span>
+          <input
+            type="number"
+            value={low}
+            onChange={(e) => setLow(e.target.value)}
+            className="mt-1 w-28 rounded-xl bg-black/40 border border-white/10 px-3 py-2"
+          />
         </label>
       </div>
     </div>

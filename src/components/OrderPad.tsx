@@ -6,6 +6,7 @@ import { StockBadge } from "@/components/StockBadge";
 import { cn, formatInr, formatOrderNumber } from "@/lib/format";
 import { remainingDisplay, stockLevel } from "@/lib/stock-math";
 import type { ProductCard } from "@/lib/data";
+import type { PaymentMethod } from "@prisma/client";
 
 type Stats = {
   revenue: number;
@@ -15,6 +16,14 @@ type Stats = {
 };
 
 type Cart = Record<string, number>;
+
+function pickUnitPrice(product: ProductCard, paymentMethod: PaymentMethod): number | null {
+  if (paymentMethod === "COUPON") {
+    if (product.couponPrice != null) return product.couponPrice;
+    return product.price;
+  }
+  return product.price;
+}
 
 function applyDeltas(products: ProductCard[], deltas: OrderStockDelta[]): ProductCard[] {
   if (deltas.length === 0) return products;
@@ -62,6 +71,7 @@ export function OrderPad({
   const [products, setProducts] = useState(initialProducts);
   const [stats, setStats] = useState(initialStats);
   const [cart, setCart] = useState<Cart>({});
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("CASH_UPI");
   const [error, setError] = useState<string | null>(null);
   const [flash, setFlash] = useState<string | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
@@ -89,7 +99,7 @@ export function OrderPad({
       .map((p) => {
         const quantity = cart[p.id];
         const unit = p.trackingType === "LIQUOR" ? "peg" : "unit";
-        const unitPrice = p.price;
+        const unitPrice = pickUnitPrice(p, paymentMethod);
         return {
           product: p,
           quantity,
@@ -98,13 +108,14 @@ export function OrderPad({
           lineTotal: unitPrice == null ? null : quantity * unitPrice,
         };
       });
-  }, [products, cart]);
+  }, [products, cart, paymentMethod]);
 
   const total = lines.reduce((sum, line) => sum + (line.lineTotal ?? 0), 0);
   const unpricedCount = lines.filter((line) => line.unitPrice == null).length;
   const itemCount = lines.reduce((sum, line) => sum + line.quantity, 0);
   const pegsInCart = lines.filter((l) => l.unit === "peg").reduce((s, l) => s + l.quantity, 0);
   const beerInCart = lines.filter((l) => l.unit === "unit").reduce((s, l) => s + l.quantity, 0);
+  const payLabel = paymentMethod === "COUPON" ? "Coupon" : "Cash/UPI";
 
   function submit() {
     if (lines.length === 0 || pending) return;
@@ -117,6 +128,7 @@ export function OrderPad({
     const savedUnpriced = unpricedCount;
     const savedPegs = pegsInCart;
     const savedBeer = beerInCart;
+    const savedMethod = paymentMethod;
 
     setCart({});
     setCartOpen(false);
@@ -133,6 +145,7 @@ export function OrderPad({
         const result = await createOrderAction({
           idempotencyKey: key,
           items: payload,
+          paymentMethod: savedMethod,
         });
         if (!result.ok) {
           setStats((s) => ({
@@ -149,7 +162,8 @@ export function OrderPad({
           savedUnpriced > 0 && savedTotal === 0
             ? "qty recorded"
             : formatInr(result.total ?? savedTotal);
-        setFlash(`${formatOrderNumber(result.orderNumber)} saved · ${moneyNote}`);
+        const methodNote = savedMethod === "COUPON" ? "coupon" : "cash/UPI";
+        setFlash(`${formatOrderNumber(result.orderNumber)} saved · ${moneyNote} · ${methodNote}`);
         if (result.deltas?.length) {
           setProducts((prev) => applyDeltas(prev, result.deltas));
         }
@@ -178,6 +192,7 @@ export function OrderPad({
             <p className="text-xs tracking-[0.35em] text-gold uppercase">Tonight</p>
             <h1 className="font-display text-5xl sm:text-6xl leading-none">DEGENERATE BAR</h1>
           </div>
+          <PaymentToggle value={paymentMethod} onChange={setPaymentMethod} />
         </div>
 
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -203,6 +218,7 @@ export function OrderPad({
                 key={product.id}
                 product={product}
                 quantity={cart[product.id] || 0}
+                paymentMethod={paymentMethod}
                 onChange={setQty}
               />
             ))}
@@ -216,6 +232,7 @@ export function OrderPad({
                 key={product.id}
                 product={product}
                 quantity={cart[product.id] || 0}
+                paymentMethod={paymentMethod}
                 onChange={setQty}
               />
             ))}
@@ -229,6 +246,9 @@ export function OrderPad({
           total={total}
           pending={pending}
           unpricedCount={unpricedCount}
+          payLabel={payLabel}
+          paymentMethod={paymentMethod}
+          onPaymentChange={setPaymentMethod}
           onChange={setQty}
           onSubmit={submit}
         />
@@ -240,12 +260,13 @@ export function OrderPad({
             <CartLines lines={lines} onChange={setQty} />
           </div>
         )}
+        <PaymentToggle value={paymentMethod} onChange={setPaymentMethod} compact />
         <button
           type="button"
           onClick={() => setCartOpen((v) => !v)}
-          className="w-full text-left text-sm text-mute mb-2"
+          className="w-full text-left text-sm text-mute mb-2 mt-2"
         >
-          Current order · {itemCount} {itemCount === 1 ? "item" : "items"} · {formatInr(total)}
+          Current order · {itemCount} {itemCount === 1 ? "item" : "items"} · {formatInr(total)} · {payLabel}
         </button>
         <button
           onClick={submit}
@@ -259,6 +280,43 @@ export function OrderPad({
               : `ADD ORDER · ${formatInr(total)}`}
         </button>
       </div>
+    </div>
+  );
+}
+
+function PaymentToggle({
+  value,
+  onChange,
+  compact,
+}: {
+  value: PaymentMethod;
+  onChange: (v: PaymentMethod) => void;
+  compact?: boolean;
+}) {
+  return (
+    <div className={cn("flex gap-1 rounded-full bg-white/5 p-1", compact && "w-full")}>
+      <button
+        type="button"
+        onClick={() => onChange("CASH_UPI")}
+        className={cn(
+          "rounded-full text-xs font-medium px-3 py-1.5",
+          compact && "flex-1",
+          value === "CASH_UPI" ? "bg-gold text-ink" : "text-mute",
+        )}
+      >
+        Cash / UPI
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange("COUPON")}
+        className={cn(
+          "rounded-full text-xs font-medium px-3 py-1.5",
+          compact && "flex-1",
+          value === "COUPON" ? "bg-gold text-ink" : "text-mute",
+        )}
+      >
+        Coupon
+      </button>
     </div>
   );
 }
@@ -287,14 +345,24 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function ProductTile({
   product,
   quantity,
+  paymentMethod,
   onChange,
 }: {
   product: ProductCard;
   quantity: number;
+  paymentMethod: PaymentMethod;
   onChange: (id: string, qty: number) => void;
 }) {
   const warn = product.stock.level !== "HEALTHY";
   const unit = product.trackingType === "LIQUOR" ? "peg" : "unit";
+  const unitPrice = pickUnitPrice(product, paymentMethod);
+  const priceHint =
+    unitPrice == null
+      ? "No price · qty only"
+      : paymentMethod === "COUPON"
+        ? `${formatInr(unitPrice)} coupon / ${unit}`
+        : `${formatInr(unitPrice)} / ${unit}`;
+
   return (
     <div
       className={cn(
@@ -310,9 +378,12 @@ function ProductTile({
       <div className="flex items-start justify-between gap-2">
         <div>
           <h3 className="font-display text-2xl leading-none">{product.name}</h3>
-          <p className="text-sm text-mute mt-1">
-            {product.price == null ? "No price · qty only" : `${formatInr(product.price)} / ${unit}`}
-          </p>
+          <p className="text-sm text-mute mt-1">{priceHint}</p>
+          {product.price != null && product.couponPrice != null && (
+            <p className="text-[10px] text-mute/80 mt-0.5">
+              Cash {formatInr(product.price)} · Coupon {formatInr(product.couponPrice)}
+            </p>
+          )}
         </div>
         <StockBadge level={product.stock.level} compact />
       </div>
@@ -391,9 +462,7 @@ function CartLines({
             <p className="text-xs text-mute">
               {line.unitPrice == null
                 ? "qty only · no price"
-                : line.unit === "peg"
-                  ? "30 ml peg"
-                  : "unit"}
+                : `${formatInr(line.unitPrice)} / ${line.unit === "peg" ? "peg" : "unit"}`}
             </p>
           </div>
           <div className="text-right">
@@ -418,6 +487,9 @@ function CartPanel({
   total,
   pending,
   unpricedCount,
+  payLabel,
+  paymentMethod,
+  onPaymentChange,
   onChange,
   onSubmit,
 }: {
@@ -431,19 +503,25 @@ function CartPanel({
   total: number;
   pending: boolean;
   unpricedCount: number;
+  payLabel: string;
+  paymentMethod: PaymentMethod;
+  onPaymentChange: (v: PaymentMethod) => void;
   onChange: (id: string, qty: number) => void;
   onSubmit: () => void;
 }) {
   return (
     <div className="panel rounded-3xl p-5 sticky top-24">
       <p className="text-xs tracking-[0.3em] uppercase text-mute">Current order</p>
+      <div className="mt-3">
+        <PaymentToggle value={paymentMethod} onChange={onPaymentChange} compact />
+      </div>
       <div className="mt-4 min-h-40">
         <CartLines lines={lines} onChange={onChange} />
       </div>
       <div className="gold-line my-4" />
       <div className="flex items-end justify-between">
         <span className="text-mute text-sm">
-          {unpricedCount > 0 && total === 0 ? "Qty only" : "Total"}
+          {unpricedCount > 0 && total === 0 ? "Qty only" : `Total · ${payLabel}`}
         </span>
         <span className="font-display text-4xl text-gold">{formatInr(total)}</span>
       </div>

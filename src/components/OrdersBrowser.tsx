@@ -8,6 +8,7 @@ export type OrderRow = {
   id: string;
   orderNumber: number;
   total: number;
+  paymentMethod: "CASH_UPI" | "COUPON";
   status: "COMPLETED" | "VOID";
   createdAt: string;
   createdByName: string | null;
@@ -102,7 +103,8 @@ export function OrdersBrowser({
               <div>
                 <p className="font-display text-2xl leading-none">{formatOrderNumber(order.orderNumber)}</p>
                 <p className="text-xs text-mute mt-1">
-                  {formatDateTime(order.createdAt)} · {order.createdByName || "Unknown"}
+                  {formatDateTime(order.createdAt)} · {order.createdByName || "Unknown"} ·{" "}
+                  {order.paymentMethod === "COUPON" ? "Coupon" : "Cash/UPI"}
                 </p>
                 <p className="text-sm mt-2">
                   {order.items.map((i) => `${i.name} × ${i.quantity}`).join(" · ")}

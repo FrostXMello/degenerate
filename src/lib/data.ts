@@ -20,6 +20,7 @@ export type ProductCard = {
   lowThreshold: number;
   veryLowThreshold: number;
   price: number | null;
+  couponPrice: number | null;
   stock: {
     estimatedVolumeMl: number | null;
     estimatedUnits: number | null;
@@ -48,7 +49,7 @@ function toCard(product: {
   initialVolumeMl: number | null;
   lowThreshold: number;
   veryLowThreshold: number;
-  prices: { price: number }[];
+  prices: { price: number; couponPrice: number | null }[];
   stock: { estimatedVolumeMl: number | null; estimatedUnits: number | null } | null;
 }): ProductCard {
   const display = remainingDisplay({
@@ -77,6 +78,7 @@ function toCard(product: {
     lowThreshold: product.lowThreshold,
     veryLowThreshold: product.veryLowThreshold,
     price: product.prices[0]?.price ?? null,
+    couponPrice: product.prices[0]?.couponPrice ?? null,
     stock: {
       estimatedVolumeMl: product.stock?.estimatedVolumeMl ?? null,
       estimatedUnits: product.stock?.estimatedUnits ?? null,

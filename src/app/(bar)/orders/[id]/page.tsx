@@ -23,6 +23,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
         id: order.id,
         orderNumber: order.orderNumber,
         total: order.total,
+        paymentMethod: order.paymentMethod,
         status: order.status,
         createdAt: order.createdAt.toISOString(),
         createdByName: order.createdBy?.name ?? null,
