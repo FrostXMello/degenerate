@@ -198,6 +198,30 @@ async function main() {
     });
   }
 
+  const foodMenu = [
+    { name: "Sweet Corn (150g)", price: 100, sortOrder: 1 },
+    { name: "French Fries (150g)", price: 150, sortOrder: 2 },
+    { name: "Veg Bites (100g)", price: 150, sortOrder: 3 },
+  ];
+  for (const item of foodMenu) {
+    const existing = await prisma.foodMenuItem.findFirst({ where: { name: item.name } });
+    if (existing) {
+      await prisma.foodMenuItem.update({
+        where: { id: existing.id },
+        data: { price: item.price, active: true, sortOrder: item.sortOrder },
+      });
+    } else {
+      await prisma.foodMenuItem.create({
+        data: {
+          name: item.name,
+          price: item.price,
+          active: true,
+          sortOrder: item.sortOrder,
+        },
+      });
+    }
+  }
+
   let sort = 0;
   for (const item of liquor) {
     const bottleSizeMl = item.bottleSizeMl ?? BOTTLE_ML;
