@@ -13,18 +13,14 @@ const barLinks = [
   { href: "/stock", label: "Stock" },
   { href: "/products", label: "Products" },
   { href: "/closing", label: "Closing" },
-  { href: "/guests", label: "Guests", admin: true },
-  { href: "/gate", label: "Gate", admin: true },
+  { href: "/guests", label: "Door", admin: true },
 ];
 
 export function AppNav({ user }: { user: SessionUser }) {
   const pathname = usePathname();
   const isGate = user.role === "GATE_STAFF";
   const links = isGate
-    ? [
-        { href: "/guests", label: "Guest List" },
-        { href: "/gate", label: "Offline Passes" },
-      ]
+    ? [{ href: "/guests", label: "Door List" }]
     : barLinks.filter((l) => !("admin" in l && l.admin) || user.role === "ADMIN");
 
   const roleLabel =
@@ -33,10 +29,10 @@ export function AppNav({ user }: { user: SessionUser }) {
   return (
     <header className="sticky top-0 z-40 border-b border-white/5 bg-ink/90 backdrop-blur-xl shrink-0 safe-top overflow-x-hidden">
       <div className="mx-auto max-w-7xl w-full min-w-0 px-4 py-2 flex items-center gap-2 sm:gap-3">
-        <Link href={isGate ? "/gate" : "/order"} className="shrink-0">
+        <Link href={isGate ? "/guests" : "/order"} className="shrink-0">
           <p className="font-display text-xl leading-none text-gold">DEGENERATE</p>
           <p className="text-[9px] tracking-[0.35em] text-mute uppercase">
-            {isGate ? "Gate" : "Bar ledger"}
+            {isGate ? "Door" : "Bar ledger"}
           </p>
         </Link>
         <nav className="flex-1 min-w-0 overflow-x-auto overscroll-x-contain scrollbar-none">

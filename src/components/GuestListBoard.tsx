@@ -47,14 +47,14 @@ const TYPE_META: Record<
     hint: "Free entry · collect ₹1000 cover",
   },
   PAID: {
-    label: "Paid · no cover",
+    label: "Offline pass",
     className: "bg-emerald-500/15 text-emerald-300 border-emerald-400/30",
-    hint: "Already paid · no cover at door",
+    hint: "Paid / offline pass · no cover at door",
   },
   BACKSTAGE: {
-    label: "Backstage special",
+    label: "Backstage",
     className: "bg-fuchsia-500/15 text-fuchsia-200 border-fuchsia-400/30",
-    hint: "VIP / backstage · special entry",
+    hint: "Backstage special · VIP entry",
   },
 };
 
@@ -218,20 +218,23 @@ export function GuestListBoard({
     <div className="space-y-3 pb-24 sm:pb-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-gold">Door list</p>
-          <h1 className="font-display text-4xl sm:text-5xl leading-none">Guest List</h1>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-gold">All entries</p>
+          <h1 className="font-display text-4xl sm:text-5xl leading-none">Door List</h1>
+          <p className="text-sm text-mute mt-1">Guest list · Offline passes · Backstage — one search</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Link href="/gate" className="rounded-full border border-white/15 text-mute px-3 py-1.5 text-xs">
-            Offline passes
-          </Link>
+          {isAdmin && (
+            <Link href="/gate/staff" className="rounded-full border border-gold/40 text-gold px-3 py-1.5 text-xs">
+              Gate staff
+            </Link>
+          )}
           {canAdd && (
             <button
               type="button"
               onClick={() => setShowAdd((v) => !v)}
               className="rounded-full bg-gold text-ink px-3 py-1.5 text-xs font-semibold"
             >
-              {showAdd ? "Close" : "+ Add guest"}
+              {showAdd ? "Close" : "+ Add entry"}
             </button>
           )}
         </div>
@@ -245,7 +248,7 @@ export function GuestListBoard({
       </div>
       <div className="grid grid-cols-3 gap-2">
         <Stat label="Guest list" value={String(stats.regular)} />
-        <Stat label="Paid" value={String(stats.paid)} />
+        <Stat label="Offline pass" value={String(stats.paid)} />
         <Stat label="Backstage" value={String(stats.backstage)} />
       </div>
 
@@ -297,7 +300,7 @@ export function GuestListBoard({
             [
               ["all", "All"],
               ["REGULAR", "Guest list"],
-              ["PAID", "Paid"],
+              ["PAID", "Offline pass"],
               ["BACKSTAGE", "Backstage"],
             ] as const
           ).map(([key, label]) => (
@@ -496,7 +499,7 @@ function AddGuestForm({
 
   return (
     <form onSubmit={submit} className="panel rounded-2xl p-4 space-y-3">
-      <p className="text-xs uppercase tracking-[0.2em] text-gold">Add to guest list</p>
+      <p className="text-xs uppercase tracking-[0.2em] text-gold">Add entry</p>
       <div className="grid sm:grid-cols-2 gap-3">
         <label className="block sm:col-span-2">
           <span className="text-xs text-mute">Name *</span>
@@ -539,7 +542,7 @@ function AddGuestForm({
             className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 px-3 py-2 outline-none focus:border-gold"
           >
             <option value="REGULAR">Guest list (₹1k cover)</option>
-            <option value="PAID">Paid (no cover)</option>
+            <option value="PAID">Offline pass (no cover)</option>
             <option value="BACKSTAGE">Backstage special</option>
           </select>
         </label>
