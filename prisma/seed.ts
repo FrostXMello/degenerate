@@ -221,7 +221,7 @@ async function main() {
 
   // Guest list seed (idempotent by phone / regNo / name)
   const guestPath = join(__dirname, "guest-list.json");
-  const guests = JSON.parse(readFileSync(guestPath, "utf8")) as GuestSeed[];
+  const guests = JSON.parse(readFileSync(guestPath, "utf8").replace(/^\uFEFF/, "")) as GuestSeed[];
   for (const g of guests) {
     const phone = normalizePhone(g.phone);
     const email = g.email?.trim() || null;
