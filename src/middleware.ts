@@ -31,7 +31,8 @@ export async function middleware(request: NextRequest) {
 
   if (PUBLIC.includes(pathname)) {
     if (role) {
-      const dest = role === "GATE_STAFF" ? "/guests" : "/order";
+      const dest =
+        role === "GATE_STAFF" ? "/guests" : role === "FOOD_STAFF" ? "/food" : "/order";
       return NextResponse.redirect(new URL(dest, request.url));
     }
     return NextResponse.next();
@@ -53,7 +54,6 @@ export async function middleware(request: NextRequest) {
 
   if (role === "GATE_STAFF") {
     if (pathname === "/guests" || pathname.startsWith("/guests/")) {
-      // Staff admin is admin-only
       if (pathname.startsWith("/guests/staff")) {
         return NextResponse.redirect(new URL("/guests", request.url));
       }
@@ -62,12 +62,25 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/guests", request.url));
   }
 
+  if (role === "FOOD_STAFF") {
+    if (pathname === "/food" || pathname.startsWith("/food/")) {
+      if (pathname.startsWith("/food/staff")) {
+        return NextResponse.redirect(new URL("/food", request.url));
+      }
+      return NextResponse.next();
+    }
+    return NextResponse.redirect(new URL("/food", request.url));
+  }
+
   if (pathname === "/" || pathname === "") {
     return NextResponse.redirect(new URL("/order", request.url));
   }
 
   if (role === "BAR_OPERATOR") {
     if (pathname === "/guests" || pathname.startsWith("/guests/")) {
+      return NextResponse.redirect(new URL("/order", request.url));
+    }
+    if (pathname === "/food" || pathname.startsWith("/food/")) {
       return NextResponse.redirect(new URL("/order", request.url));
     }
   }

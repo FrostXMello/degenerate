@@ -5,6 +5,29 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { clearSessionCookie, homeForRole, setSessionCookie, signSession } from "@/lib/auth";
 
+function foodFlags(user: {
+  role: string;
+  canAddFoodItems: boolean;
+  canRemoveFoodItems: boolean;
+  canChangeFoodPrices: boolean;
+  canVoidFoodOrders: boolean;
+}) {
+  if (user.role === "ADMIN") {
+    return {
+      canAddFoodItems: true,
+      canRemoveFoodItems: true,
+      canChangeFoodPrices: true,
+      canVoidFoodOrders: true,
+    };
+  }
+  return {
+    canAddFoodItems: user.canAddFoodItems,
+    canRemoveFoodItems: user.canRemoveFoodItems,
+    canChangeFoodPrices: user.canChangeFoodPrices,
+    canVoidFoodOrders: user.canVoidFoodOrders,
+  };
+}
+
 export async function loginAction(formData: FormData) {
   const username = String(formData.get("username") || "").trim().toLowerCase();
   const password = String(formData.get("password") || "");
@@ -23,6 +46,7 @@ export async function loginAction(formData: FormData) {
     redirect("/login?error=invalid");
   }
 
+  const food = foodFlags(user);
   const token = await signSession({
     id: user.id,
     username: user.username,
@@ -30,6 +54,7 @@ export async function loginAction(formData: FormData) {
     role: user.role,
     canAddGateEntries: user.role === "ADMIN" ? true : user.canAddGateEntries,
     canRemoveGateEntries: user.role === "ADMIN" ? true : user.canRemoveGateEntries,
+    ...food,
   });
   await setSessionCookie(token);
   redirect(homeForRole(user.role));

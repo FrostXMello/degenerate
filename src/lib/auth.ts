@@ -13,6 +13,10 @@ export type SessionUser = {
   role: UserRole;
   canAddGateEntries: boolean;
   canRemoveGateEntries: boolean;
+  canAddFoodItems: boolean;
+  canRemoveFoodItems: boolean;
+  canChangeFoodPrices: boolean;
+  canVoidFoodOrders: boolean;
 };
 
 function secret() {
@@ -42,6 +46,10 @@ export async function readSession(): Promise<SessionUser | null> {
       role: payload.role as UserRole,
       canAddGateEntries: Boolean(payload.canAddGateEntries),
       canRemoveGateEntries: Boolean(payload.canRemoveGateEntries),
+      canAddFoodItems: Boolean(payload.canAddFoodItems),
+      canRemoveFoodItems: Boolean(payload.canRemoveFoodItems),
+      canChangeFoodPrices: Boolean(payload.canChangeFoodPrices),
+      canVoidFoodOrders: Boolean(payload.canVoidFoodOrders),
     };
   } catch {
     return null;
@@ -107,6 +115,81 @@ export async function requireGatePermission(kind: "add" | "remove") {
   };
 }
 
+export async function requireFoodAccess() {
+  const session = await requireSession();
+  if (session.role !== "ADMIN" && session.role !== "FOOD_STAFF") {
+    throw new Error("Forbidden");
+  }
+  if (session.role === "FOOD_STAFF") {
+    const user = await prisma.user.findUnique({ where: { id: session.id } });
+    if (!user || !user.active || user.role !== "FOOD_STAFF") {
+      throw new Error("Forbidden");
+    }
+    return foodPerms(session, user);
+  }
+  return {
+    ...session,
+    canAddFoodItems: true,
+    canRemoveFoodItems: true,
+    canChangeFoodPrices: true,
+    canVoidFoodOrders: true,
+  };
+}
+
+export type FoodPermission = "addItem" | "removeItem" | "changePrice" | "voidOrder";
+
+/** Fresh DB permissions for food menu / voids. */
+export async function requireFoodPermission(kind: FoodPermission) {
+  const session = await requireSession();
+  if (session.role === "ADMIN") {
+    return {
+      ...session,
+      canAddFoodItems: true,
+      canRemoveFoodItems: true,
+      canChangeFoodPrices: true,
+      canVoidFoodOrders: true,
+    };
+  }
+
+  if (session.role !== "FOOD_STAFF") throw new Error("Forbidden");
+
+  const user = await prisma.user.findUnique({ where: { id: session.id } });
+  if (!user || !user.active || user.role !== "FOOD_STAFF") {
+    throw new Error("Forbidden");
+  }
+  if (kind === "addItem" && !user.canAddFoodItems) {
+    throw new Error("You do not have permission to add menu items.");
+  }
+  if (kind === "removeItem" && !user.canRemoveFoodItems) {
+    throw new Error("You do not have permission to remove menu items.");
+  }
+  if (kind === "changePrice" && !user.canChangeFoodPrices) {
+    throw new Error("You do not have permission to change prices.");
+  }
+  if (kind === "voidOrder" && !user.canVoidFoodOrders) {
+    throw new Error("You do not have permission to void food orders.");
+  }
+  return foodPerms(session, user);
+}
+
+function foodPerms(
+  session: SessionUser,
+  user: {
+    canAddFoodItems: boolean;
+    canRemoveFoodItems: boolean;
+    canChangeFoodPrices: boolean;
+    canVoidFoodOrders: boolean;
+  },
+) {
+  return {
+    ...session,
+    canAddFoodItems: user.canAddFoodItems,
+    canRemoveFoodItems: user.canRemoveFoodItems,
+    canChangeFoodPrices: user.canChangeFoodPrices,
+    canVoidFoodOrders: user.canVoidFoodOrders,
+  };
+}
+
 export async function setSessionCookie(token: string) {
   const store = await cookies();
   store.set(COOKIE, token, {
@@ -124,7 +207,9 @@ export async function clearSessionCookie() {
 }
 
 export function homeForRole(role: UserRole) {
-  return role === "GATE_STAFF" ? "/guests" : "/order";
+  if (role === "GATE_STAFF") return "/guests";
+  if (role === "FOOD_STAFF") return "/food";
+  return "/order";
 }
 
 export const SESSION_COOKIE = COOKIE;

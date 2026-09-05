@@ -165,6 +165,39 @@ async function main() {
     },
   });
 
+  const foodHash = await bcrypt.hash("food456", 10);
+  const foodStaff = [
+    { username: "food1", name: "Food 1" },
+    { username: "food2", name: "Food 2" },
+    { username: "food3", name: "Food 3" },
+  ];
+  for (const staff of foodStaff) {
+    await prisma.user.upsert({
+      where: { username: staff.username },
+      update: {
+        name: staff.name,
+        passwordHash: foodHash,
+        role: UserRole.FOOD_STAFF,
+        active: true,
+        canAddFoodItems: true,
+        canRemoveFoodItems: true,
+        canChangeFoodPrices: true,
+        canVoidFoodOrders: true,
+      },
+      create: {
+        username: staff.username,
+        name: staff.name,
+        passwordHash: foodHash,
+        role: UserRole.FOOD_STAFF,
+        active: true,
+        canAddFoodItems: true,
+        canRemoveFoodItems: true,
+        canChangeFoodPrices: true,
+        canVoidFoodOrders: true,
+      },
+    });
+  }
+
   let sort = 0;
   for (const item of liquor) {
     const bottleSizeMl = item.bottleSizeMl ?? BOTTLE_ML;

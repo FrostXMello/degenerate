@@ -12,6 +12,7 @@ enum UserRole {
   ADMIN
   BAR_OPERATOR
   GATE_STAFF
+  FOOD_STAFF
 }
 
 enum TrackingType {
@@ -64,6 +65,10 @@ model User {
   active               Boolean  @default(true)
   canAddGateEntries    Boolean  @default(false)
   canRemoveGateEntries Boolean  @default(false)
+  canAddFoodItems      Boolean  @default(false)
+  canRemoveFoodItems   Boolean  @default(false)
+  canChangeFoodPrices  Boolean  @default(false)
+  canVoidFoodOrders    Boolean  @default(false)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
@@ -78,6 +83,9 @@ model User {
   guestsCreated          GuestListEntry[]        @relation("GuestCreatedBy")
   guestsCheckedIn        GuestListEntry[]        @relation("GuestCheckedInBy")
   gateAudits             GateAuditLog[]
+  foodItemsCreated       FoodMenuItem[]          @relation("FoodItemCreatedBy")
+  foodOrdersCreated      FoodOrder[]             @relation("FoodOrderCreatedBy")
+  foodOrdersVoided       FoodOrder[]             @relation("FoodOrderVoidedBy")
 }
 
 model Product {
@@ -267,4 +275,57 @@ model GateAuditLog {
 
   @@index([createdAt])
   @@index([action])
+}
+
+model FoodMenuItem {
+  id          String   @id @default(cuid())
+  name        String
+  price       Int
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdById String?
+  createdBy   User?    @relation("FoodItemCreatedBy", fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderItems  FoodOrderItem[]
+
+  @@index([active])
+  @@index([sortOrder])
+}
+
+model FoodOrder {
+  id             String        @id @default(cuid())
+  orderNumber    Int           @unique
+  total          Int
+  paymentMethod  PaymentMethod @default(CASH_UPI)
+  status         OrderStatus   @default(COMPLETED)
+  voidReason     String?
+  voidedAt       DateTime?
+  idempotencyKey String?       @unique
+  note           String?
+  createdById    String?
+  createdBy      User?         @relation("FoodOrderCreatedBy", fields: [createdById], references: [id])
+  voidedById     String?
+  voidedBy       User?         @relation("FoodOrderVoidedBy", fields: [voidedById], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  items          FoodOrderItem[]
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model FoodOrderItem {
+  id               String       @id @default(cuid())
+  orderId          String
+  order            FoodOrder    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItemId       String?
+  menuItem         FoodMenuItem? @relation(fields: [menuItemId], references: [id], onDelete: SetNull)
+  nameSnapshot     String
+  quantity         Int
+  unitPrice        Int
+  lineTotal        Int
+
+  @@index([orderId])
+  @@index([menuItemId])
 }

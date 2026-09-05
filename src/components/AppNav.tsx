@@ -14,31 +14,52 @@ const barLinks = [
   { href: "/products", label: "Products" },
   { href: "/closing", label: "Closing" },
   { href: "/guests", label: "Guests", admin: true },
+  { href: "/food", label: "Food", admin: true },
+];
+
+const foodLinks = [
+  { href: "/food", label: "New order" },
+  { href: "/food/orders", label: "History" },
+  { href: "/food/menu", label: "Menu" },
 ];
 
 export function AppNav({ user }: { user: SessionUser }) {
   const pathname = usePathname();
   const isGate = user.role === "GATE_STAFF";
+  const isFood = user.role === "FOOD_STAFF";
+
   const links = isGate
     ? [{ href: "/guests", label: "Guests" }]
-    : barLinks.filter((l) => !("admin" in l && l.admin) || user.role === "ADMIN");
+    : isFood
+      ? foodLinks
+      : barLinks.filter((l) => !("admin" in l && l.admin) || user.role === "ADMIN");
 
   const roleLabel =
-    user.role === "ADMIN" ? "Admin" : user.role === "GATE_STAFF" ? "Gate" : "Bar";
+    user.role === "ADMIN"
+      ? "Admin"
+      : user.role === "GATE_STAFF"
+        ? "Gate"
+        : user.role === "FOOD_STAFF"
+          ? "Food"
+          : "Bar";
+
+  const home = isGate ? "/guests" : isFood ? "/food" : "/order";
+  const subtitle = isGate ? "Guests" : isFood ? "Food menu" : "Bar ledger";
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/5 bg-ink/90 backdrop-blur-xl shrink-0 safe-top overflow-x-hidden">
       <div className="mx-auto max-w-7xl w-full min-w-0 px-4 py-2 flex items-center gap-2 sm:gap-3">
-        <Link href={isGate ? "/guests" : "/order"} className="shrink-0">
+        <Link href={home} className="shrink-0">
           <p className="font-display text-xl leading-none text-gold">DEGENERATE</p>
-          <p className="text-[9px] tracking-[0.35em] text-mute uppercase">
-            {isGate ? "Guests" : "Bar ledger"}
-          </p>
+          <p className="text-[9px] tracking-[0.35em] text-mute uppercase">{subtitle}</p>
         </Link>
         <nav className="flex-1 min-w-0 overflow-x-auto overscroll-x-contain scrollbar-none">
           <ul className="flex items-center gap-1 w-max max-w-none">
             {links.map((link) => {
-              const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+              const active =
+                link.href === "/food"
+                  ? pathname === "/food"
+                  : pathname === link.href || pathname.startsWith(`${link.href}/`);
               return (
                 <li key={link.href} className="shrink-0">
                   <Link

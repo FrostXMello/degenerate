@@ -15,6 +15,9 @@ const LIVE_TABLES = [
   "GuestListEntry",
   "ClosingReport",
   "GateAuditLog",
+  "FoodMenuItem",
+  "FoodOrder",
+  "FoodOrderItem",
 ] as const;
 
 /**
