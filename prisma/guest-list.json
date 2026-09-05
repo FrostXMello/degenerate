@@ -44,8 +44,8 @@
     "phone": null,
     "email": null,
     "reg_no": "2606010134",
-    "guest_type": "regular",
-    "cover_charge": 1000
+    "guest_type": "paid",
+    "cover_charge": 0
   },
   {
     "name": "Akash Pachera",
@@ -1390,5 +1390,69 @@
     "reg_no": null,
     "guest_type": "backstage_special",
     "cover_charge": 0
+  },
+  {
+    "name": "Aditi Sharma",
+    "phone": "9654440204",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Harshita Vasu",
+    "phone": "6200309992",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Shouzeb Sharique Neyazi",
+    "phone": "9546152040",
+    "email": "Neyazi.shouzeb@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Aditi Singh Rajput",
+    "phone": "9625203152",
+    "email": "singhaditirajput88@gmail.com",
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Ruddra",
+    "phone": "9509365637",
+    "email": null,
+    "reg_no": null,
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Parv Gera",
+    "phone": null,
+    "email": null,
+    "reg_no": "2427010309",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Shashwat Kumar Singh",
+    "phone": null,
+    "email": null,
+    "reg_no": "2428020303",
+    "guest_type": "regular",
+    "cover_charge": 1000
+  },
+  {
+    "name": "Shivani Chawla",
+    "phone": null,
+    "email": null,
+    "reg_no": "2508010065",
+    "guest_type": "regular",
+    "cover_charge": 1000
   }
 ]

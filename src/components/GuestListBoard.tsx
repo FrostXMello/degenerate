@@ -193,7 +193,7 @@ export function GuestListBoard({
         checkedIn: Math.max(0, s.checkedIn - 1),
         notCheckedIn: s.notCheckedIn + 1,
       }));
-      flash(`Check-in reversed for ${guest.name}`, "ok");
+      flash(`Unchecked · ${guest.name}`, "ok");
     });
   }
 
@@ -463,9 +463,9 @@ export function GuestListBoard({
                       type="button"
                       disabled={pending}
                       onClick={() => undo(guest)}
-                      className="rounded-xl border border-white/15 text-mute px-3 py-2 text-xs"
+                      className="rounded-xl border border-amber-400/40 text-amber-100 px-3 py-2 text-xs font-medium"
                     >
-                      Undo check-in
+                      Uncheck
                     </button>
                   )}
                   {guest.guestType === "REGULAR" && guest.coverCollected && (
