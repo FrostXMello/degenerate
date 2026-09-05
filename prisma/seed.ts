@@ -54,7 +54,7 @@ function normalizePhone(phone: string | null | undefined) {
 }
 
 function mapGuestType(raw: string): GuestType {
-  if (raw === "paid") return GuestType.PAID;
+  if (raw === "paid" || raw === "paid_verified") return GuestType.PAID;
   if (raw === "backstage_special" || raw === "backstage") return GuestType.BACKSTAGE;
   return GuestType.REGULAR;
 }
@@ -250,6 +250,7 @@ async function main() {
           regNo,
           guestType,
           coverCharge,
+          coverCollected: guestType !== GuestType.REGULAR ? true : existing.coverCollected,
         },
       });
     } else {
@@ -261,6 +262,7 @@ async function main() {
           regNo,
           guestType,
           coverCharge,
+          coverCollected: guestType !== GuestType.REGULAR,
         },
       });
     }
